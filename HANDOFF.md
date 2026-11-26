@@ -3,12 +3,11 @@
 Ultimo aggiornamento: 26/11/2026 (sera)
 
 ## Riparti da qui
-Stato: sito online su GitHub Pages, invito PDF IT/EN pronto, RSVP non ancora attivo (manca il deploy di Apps Script da parte di Samuel).
-Richiesta aperta di Samuel (in ordine):
-1. **Spiegare le scelte di stile** (sfondi, icone Adinkra, palette, font, animazioni) e perché: non ancora fatto.
-2. **Integrare lo shader WebGL** di `Ironhill-section-rebuild-main/` (studiato, non integrato). Cosa fa: piano Three.js r128 a tutto schermo con fragment shader che "dissolve" un colore pieno dal basso verso l'alto con bordo frastagliato da rumore fbm, guidato dallo scroll (`uProgress`). Idea di adattamento: hero più alto, il colore avorio `#F4EDE0` sale e copre la foto kente con bordo organico, raccordandosi con la sezione countdown; Three.js da CDN; disattivato con `prefers-reduced-motion` e fallback senza WebGL. La cartella Ironhill NON va nel repo (contiene font PP Woodland con licenza).
-3. **Revisione UX/UI con agenti separati** (Samuel l'ha chiesta esplicitamente), poi applicare le correzioni e fare push.
-
+Stato: sito online su GitHub Pages con la dissolvenza WebGL nell'hero e le correzioni della revisione UX/UI; invito PDF IT/EN pronto; RSVP non ancora attivo (manca il deploy di Apps Script da parte di Samuel).
+- **Shader:** adattato da `Ironhill-section-rebuild-main/` in WebGL puro (niente Three.js), funzione `heroVeil()` in `main.js`, canvas `.hero__veil`. L'avorio sale dal basso con bordo di rumore fbm e filo d'oro mentre si scorre l'hero. Disattivato con `prefers-reduced-motion`; senza WebGL il canvas viene rimosso.
+- **Revisione UX/UI fatta** (due agenti). Applicato: contrasti WCAG (kicker, label, placeholder, bordi), target tattili da 44 px, nav più opaca, bottone RSVP smeraldo, localStorage protetto, timeout di 15 s sull'invio, focus sul primo campo errato, ARIA dell'intro, ancore `/#rsvp` dopo l'intro, "È oggi!" dopo la data.
+- **Non fatto (scelte):** pulsante "Modifica risposta" dopo l'invio, intro solo alla prima visita, traduzione del titolo della mappa e dei dettagli del calendario, contatto WhatsApp nel messaggio d'errore (serve il numero degli sposi).
+Prossimo passo: deploy Apps Script e test di una RSVP reale; confermare scadenza e testi con gli sposi.
 
 ## Il matrimonio
 - **Sposi:** George & Silvia — matrimonio tradizionale ganese

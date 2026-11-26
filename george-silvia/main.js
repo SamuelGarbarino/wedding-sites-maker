@@ -25,7 +25,8 @@ const drawIn = (svg, opt = {}) =>
     : svg.classList.add("is-drawn");
 
 /* ---------- lingua ---------- */
-let lang = localStorage.getItem("lang") || (navigator.language || "it").slice(0, 2);
+const store = (k, v) => { try { return v === undefined ? localStorage.getItem(k) : localStorage.setItem(k, v); } catch {} };
+let lang = store("lang") || (navigator.language || "it").slice(0, 2);
 if (!I18N[lang]) lang = "en";
 const t = (k) => I18N[lang][k] ?? I18N.it[k] ?? k;
 function applyLang(root = document) {
@@ -45,7 +46,7 @@ $$("[data-lang]").forEach((b) =>
     if (b.dataset.lang === lang) return;
     const swap = () => {
       lang = b.dataset.lang;
-      localStorage.setItem("lang", lang);
+      store("lang", lang);
       splits.forEach((s) => s.revert());
       splits = [];
       applyLang();
@@ -73,7 +74,14 @@ function tick() {
   }
 }
 tick();
-setInterval(tick, 1000);
+const cdTimer = setInterval(() => {
+  tick();
+  if (CONFIG.WEDDING > Date.now()) return;
+  clearInterval(cdTimer);
+  const k = $('[data-i18n="cd.kicker"]');
+  k.dataset.i18n = "cd.today";
+  applyLang(k.parentNode);
+}, 1000);
 
 $("#cal-google").href =
   "https://calendar.google.com/calendar/render?" +
@@ -100,8 +108,9 @@ $("#copy-addr").addEventListener("click", async () => {
     const ta = Object.assign(document.createElement("textarea"), { value: CONFIG.ADDRESS });
     document.body.append(ta);
     ta.select();
-    document.execCommand("copy");
+    const ok = document.execCommand("copy");
     ta.remove();
+    if (!ok) return toast(CONFIG.ADDRESS);
   }
   toast(t("vn.copied"));
 });
@@ -123,7 +132,7 @@ form.addEventListener("change", (e) => {
 $("#add-guest").addEventListener("click", () => {
   const li = $("#guest-tpl").content.firstElementChild.cloneNode(true);
   applyLang(li);
-  li.querySelector(".guest__remove").addEventListener("click", () => li.remove());
+  li.querySelector(".guest__remove").addEventListener("click", () => { li.remove(); $("#add-guest").focus(); });
   guests.append(li);
   if (hasGsap && !reduce) gsap.from(li, { opacity: 0, y: -10, duration: 0.5, ease: "expo.out" });
   li.querySelector("input").focus();
@@ -167,7 +176,7 @@ async function send(d) {
     if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return new Promise((r) => setTimeout(r, 900));
     throw new Error("SCRIPT_URL mancante");
   }
-  const res = await fetch(CONFIG.SCRIPT_URL, { method: "POST", body: JSON.stringify(d) }); // text/plain: niente preflight CORS
+  const res = await fetch(CONFIG.SCRIPT_URL, { method: "POST", body: JSON.stringify(d), signal: AbortSignal.timeout?.(15000) }); // text/plain: niente preflight CORS
   const json = await res.json();
   if (!json.ok) throw new Error(json.error || "errore");
 }
@@ -177,7 +186,7 @@ form.addEventListener("submit", async (e) => {
   const d = collect();
   const err = validate(d);
   errEl.textContent = err ? t(err) : "";
-  if (err) return;
+  if (err) return ($("[aria-invalid]", form) || $('[name="presente"]', form)).focus();
   const btn = $(".form__submit", form);
   btn.disabled = true;
   btn.textContent = t("rs.sending");
@@ -304,7 +313,12 @@ if (!hasGsap || reduce) {
     .to(".intro__panel--bottom", { yPercent: 52, duration: 1.4, ease: "expo.inOut" }, "<")
     .fromTo(".hero__media img", { scale: 1.25 }, { scale: 1, duration: 2.4, ease: "expo.out" }, "<")
     .add(heroIn, "<0.6")
-    .add(() => { endIntro(); lenis?.start(); ScrollTrigger.refresh(); });
+    .add(() => {
+      endIntro(); lenis?.start(); ScrollTrigger.refresh();
+      // link condiviso con ancora (es. /#rsvp): ci si arriva dopo l'intro
+      const target = location.hash && document.getElementById(location.hash.slice(1));
+      if (target) lenis ? lenis.scrollTo(target, { offset: -60 }) : target.scrollIntoView();
+    });
 
   $(".intro__skip").addEventListener("click", () => tl.timeScale(6));
   // fail-safe: mai bloccati dietro l'intro
@@ -329,10 +343,60 @@ if (!hasGsap || reduce) {
 
   document.fonts.ready.then(scrollAnims);
 
+  // Dissolvenza WebGL (shader adattato da Ironhill): l'avorio sale dal basso con bordo di rumore fbm e filo d'oro.
+  function heroVeil() {
+    const c = $(".hero__veil"), gl = c.getContext("webgl", { antialias: false });
+    if (!gl) return c.remove();
+    const vs = "attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}";
+    const fs = `#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+uniform float uP;uniform vec2 uR;varying vec2 v;
+float h(vec2 p){return fract(sin(dot(vec3(p,1.),vec3(37.1,61.7,12.4)))*3758.5453123);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f*=f*(3.-2.*f);
+return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 p){return n(p)*.5+n(p*2.)*.25+n(p*4.)*.125;}
+void main(){
+  vec2 c=(v-.5)*vec2(uR.x/uR.y,1.);
+  float d=v.y-uP*1.2+fbm(c*9.)*.3, px=1./uR.y;
+  float a=1.-smoothstep(-px,px,d);
+  vec3 col=mix(vec3(.957,.929,.878),vec3(.788,.631,.231),smoothstep(-7.*px,0.,d));
+  gl_FragColor=vec4(col*a,a);
+}`;
+    const pr = gl.createProgram();
+    [[gl.VERTEX_SHADER, vs], [gl.FRAGMENT_SHADER, fs]].forEach(([t, src]) => {
+      const sh = gl.createShader(t);
+      gl.shaderSource(sh, src); gl.compileShader(sh); gl.attachShader(pr, sh);
+    });
+    gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return c.remove();
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(0);
+    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    const uP = gl.getUniformLocation(pr, "uP"), uR = gl.getUniformLocation(pr, "uR");
+    let p = 0;
+    const draw = () => { gl.uniform1f(uP, p); gl.drawArrays(gl.TRIANGLES, 0, 3); };
+    const size = () => {
+      const r = Math.min(devicePixelRatio, 2), w = c.clientWidth, hh = c.clientHeight;
+      c.width = w * r; c.height = hh * r;
+      gl.viewport(0, 0, c.width, c.height); gl.uniform2f(uR, w, hh); draw();
+    };
+    size();
+    addEventListener("resize", size);
+    // coperto del tutto a fine scroll dell'hero, quando resta visibile solo la sua parte bassa
+    ScrollTrigger.create({ trigger: "#hero", start: "top top", end: "bottom top", onUpdate: (st) => { p = Math.min(st.progress * 1.12, 1.1); draw(); } });
+  }
+
   function scrollAnims() {
     // parallasse hero
     gsap.to(".hero__media img", { yPercent: -10, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });
     gsap.to(".hero__content", { yPercent: -18, opacity: 0.2, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });
+
+    heroVeil();
 
     // nastri kente che "scorrono sul telaio"
     $$(".kente-band").forEach((b) =>

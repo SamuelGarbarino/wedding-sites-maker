@@ -24,10 +24,10 @@
 <body>
 
 <!-- ============ INTRO: tessitura kente ============ -->
-<div class="intro" id="intro" aria-hidden="true">
-  <div class="intro__panel intro__panel--top"></div>
-  <div class="intro__panel intro__panel--bottom"></div>
-  <div class="intro__medal">
+<div class="intro" id="intro">
+  <div class="intro__panel intro__panel--top" aria-hidden="true"></div>
+  <div class="intro__panel intro__panel--bottom" aria-hidden="true"></div>
+  <div class="intro__medal" aria-hidden="true">
     <svg class="draw" viewBox="0 0 48 48" aria-hidden="true">
       <use href="#i-akoma-ntoaso"/>
     </svg>
@@ -39,7 +39,7 @@
 <!-- ============ HEADER ============ -->
 <header class="nav" id="nav">
   <a class="nav__mono" href="#top" aria-label="George &amp; Silvia">G<i>&amp;</i>S</a>
-  <nav class="nav__links" aria-label="Sezioni">
+  <nav class="nav__links" aria-label="Sezioni" data-i18n-aria="nav.aria">
     <a href="#programma" data-i18n="nav.schedule">Programma</a>
     <a href="#luogo" data-i18n="nav.venue">Luogo</a>
     <a href="#rsvp" class="nav__cta">RSVP</a>
@@ -72,7 +72,8 @@
       <p class="hero__date"><span>18</span><i></i><span>09</span><i></i><span>2027</span></p>
       <p class="label hero__place">Villa Fenaroli · Rezzato</p>
     </div>
-    <a class="hero__scroll" href="#countdown" aria-label="Scorri"><span></span></a>
+    <canvas class="hero__veil" aria-hidden="true"></canvas>
+    <a class="hero__scroll" href="#countdown" aria-label="Scorri" data-i18n-aria="hero.scroll"><span></span></a>
   </section>
 
   <div class="kente-band" aria-hidden="true"></div>
