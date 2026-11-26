@@ -61,6 +61,27 @@ $$("[data-lang]").forEach((b) =>
 const nav = $("#nav");
 addEventListener("scroll", () => nav.classList.toggle("is-scrolled", scrollY > 40), { passive: true });
 
+/* ---------- timeline: percorso del nastro ---------- */
+// Curva a S che passa dal centro di ogni illustrazione; ricalcolata quando cambia il layout.
+const tlBox = $(".tl");
+function ribbon() {
+  const W = tlBox.offsetWidth, H = tlBox.offsetHeight, mobile = W < 720;
+  // offset* ignorano le trasformazioni GSAP. Desktop: il nastro passa dietro le card, non sopra gli sposi.
+  // Mobile (una colonna): passa nella fascia libera accanto a ogni illustrazione e attraversa dietro le card.
+  const pts = [[mobile ? W * 0.93 : W / 2, -40], ...$$(".tl__item", tlBox).map((li, i) => {
+    const el = $(mobile ? ".tl__art" : ".tl__card", li);
+    const y = el.offsetTop + el.offsetHeight / 2;
+    return mobile ? [W * (i % 2 ? 0.07 : 0.93), y] : [el.offsetLeft + el.offsetWidth / 2, y];
+  }), [W / 2, H + 40]];
+  let d = "M" + pts[0].join(" ");
+  for (let i = 1; i < pts.length; i++) {
+    const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], k = (y1 - y0) * 0.6;
+    d += ` C${x0} ${y0 + k} ${x1} ${y1 - k} ${x1} ${y1}`;
+  }
+  $$(".tl__ribbon path", tlBox).forEach((p) => p.setAttribute("d", d));
+}
+new ResizeObserver(ribbon).observe(tlBox);
+
 /* ---------- countdown ---------- */
 const cdEls = Object.fromEntries($$("[data-cd]").map((el) => [el.dataset.cd, el]));
 function tick() {
@@ -189,14 +210,14 @@ form.addEventListener("submit", async (e) => {
   if (err) return ($("[aria-invalid]", form) || $('[name="presente"]', form)).focus();
   const btn = $(".form__submit", form);
   btn.disabled = true;
-  btn.textContent = t("rs.sending");
+  $("span", btn).textContent = t("rs.sending");
   try {
     await send(d);
   } catch (ex) {
     console.error(ex);
     errEl.textContent = t("rs.err.send");
     btn.disabled = false;
-    btn.textContent = t("rs.send");
+    $("span", btn).textContent = t("rs.send");
     return;
   }
   const thanks = $("#rsvp-thanks");
@@ -422,14 +443,12 @@ void main(){
       onEnter: (els) => gsap.fromTo(els, { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "expo.out", overwrite: true }),
     });
 
-    // timeline: filo d'oro tessuto dallo scroll + simboli disegnati
-    gsap.fromTo(".tl__thread line", { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: ".tl", start: "top 65%", end: "bottom 65%", scrub: 0.6 } });
-    $$(".tl__item").forEach((item, i) => {
-      const fromX = innerWidth > 720 ? (i % 2 ? -50 : 50) : 30;
-      const st = { trigger: item, start: "top 70%" };
-      gsap.from($(".tl__icon", item), { scale: 0.4, opacity: 0, duration: 0.9, ease: "back.out(1.6)", scrollTrigger: st });
-      gsap.from($(".tl__body", item), { x: fromX, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: st });
-      ScrollTrigger.create({ ...st, once: true, onEnter: () => drawIn($(".tl__icon svg", item), { delay: 0.2 }) });
+    // timeline: il nastro kente si srotola con lo scroll, le illustrazioni entrano al passaggio
+    gsap.fromTo(".tl__reveal", { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: ".tl", start: "top 70%", end: "bottom 60%", scrub: 0.8 } });
+    $$(".tl__item").forEach((item) => {
+      const st = { trigger: item, start: "top 75%" };
+      gsap.from($(".tl__art", item), { scale: 0.85, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: st });
+      gsap.from($(".tl__card", item), { y: 48, opacity: 0, duration: 1.1, delay: 0.1, ease: "expo.out", scrollTrigger: st });
     });
 
     // simbolo del footer

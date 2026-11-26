@@ -8,10 +8,11 @@ Stato (27/11/2026): sito online con la dissolvenza WebGL nell'hero (il bordo seg
 - **Revisione UX/UI fatta** (due agenti). Applicato: contrasti WCAG, target tattili da 44 px, nav più opaca, bottone RSVP smeraldo, localStorage protetto, timeout di 15 s sull'invio, focus sul primo campo errato, ARIA dell'intro, ancore `/#rsvp` dopo l'intro, "È oggi!" dopo la data.
 - **Non fatto (scelte):** pulsante "Modifica risposta", intro solo alla prima visita, traduzione titolo mappa e dettagli calendario, contatto WhatsApp nel messaggio d'errore (serve il numero degli sposi).
 
-**Prossimo passo (richiesta di Samuel, 27/11):**
-1. Libreria di icone più riconoscibili per RSVP (e dove servono).
-2. Nome più chiaro di "RSVP" (nessuno lo capisce), in IT e EN.
-3. Timeline animata a "nastro a scorrimento" sul modello di `Effetto nastro a scorrimento/` (nastro più sottile), con illustrazioni al posto delle icone, generate con Gemini tramite Claude in Chrome. La cartella resta fuori dal repo (materiale scaricato).
+**Fatto il 27/11 (notte):**
+- Programma ridisegnato: sezione avorio, nastro kente (oro con filo cremisi tratteggiato) che si srotola con lo scroll dietro le card, sul modello di `Effetto nastro a scorrimento/` ma sottile. Percorso calcolato in JS (`ribbon()` in `main.js`): desktop passa dal centro delle card, mobile nella fascia libera accanto alle illustrazioni.
+- 5 illustrazioni degli sposi in kente (cerimonia, aperitivo, pranzo, torta, festa) generate con Gemini via Claude in Chrome: `george-silvia/assets/img/tl-1..5.webp` (originali in `Documents/Media Gen/2026-11-27-gemini-timeline/`). Fondo bianco + `mix-blend-mode: multiply` sull'avorio.
+- Icone Phosphor Light (MIT) inline nello sprite SVG: Sì/No, aggiungi/rimuovi accompagnatore, invia, calendario, indicazioni, copia.
+- "RSVP" nel menu sostituito da "Conferma presenza" / "Reply".
 
 Poi: deploy Apps Script e test di una RSVP reale; confermare scadenza e testi con gli sposi.
 

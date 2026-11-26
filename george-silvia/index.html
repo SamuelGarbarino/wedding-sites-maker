@@ -42,7 +42,7 @@
   <nav class="nav__links" aria-label="Sezioni" data-i18n-aria="nav.aria">
     <a href="#programma" data-i18n="nav.schedule">Programma</a>
     <a href="#luogo" data-i18n="nav.venue">Luogo</a>
-    <a href="#rsvp" class="nav__cta">RSVP</a>
+    <a href="#rsvp" class="nav__cta" data-i18n="nav.reply">Conferma presenza</a>
   </nav>
   <div class="lang" role="group" aria-label="Lingua / Language">
     <button type="button" data-lang="it" aria-pressed="true">IT</button>
@@ -91,62 +91,67 @@
     <div class="cal">
       <p class="label" data-i18n="cd.save">Aggiungi al calendario</p>
       <div class="btn-row">
-        <a class="btn" id="cal-google" target="_blank" rel="noopener" href="#">Google Calendar</a>
-        <a class="btn" href="assets/george-silvia.ics" download="george-silvia-matrimonio.ics">Apple · Outlook</a>
+        <a class="btn" id="cal-google" target="_blank" rel="noopener" href="#"><svg class="ic" aria-hidden="true"><use href="#ph-calendar-plus"/></svg><span>Google Calendar</span></a>
+        <a class="btn" href="assets/george-silvia.ics" download="george-silvia-matrimonio.ics"><svg class="ic" aria-hidden="true"><use href="#ph-calendar-plus"/></svg><span>Apple · Outlook</span></a>
       </div>
     </div>
   </section>
 
-  <!-- ============ PROGRAMMA ============ -->
-  <section class="section dark timeline" id="programma">
+  <div class="kente-band" aria-hidden="true"></div>
+
+  <!-- ============ PROGRAMMA: nastro kente che si srotola con lo scroll ============ -->
+  <section class="section paper timeline" id="programma">
     <p class="script kicker" data-i18n="tl.kicker">Il nostro giorno</p>
     <h2 class="title" data-i18n="tl.title" data-split-lines>Il programma</h2>
 
-    <ol class="tl">
-      <svg class="tl__thread" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 10 1000">
-        <line x1="5" y1="0" x2="5" y2="1000" pathLength="1" vector-effect="non-scaling-stroke"/>
+    <div class="tl">
+      <svg class="tl__ribbon" aria-hidden="true">
+        <defs><mask id="tl-mask" maskUnits="userSpaceOnUse"><path class="tl__reveal" pathLength="1"/></mask></defs>
+        <g mask="url(#tl-mask)"><path class="tl__band"/><path class="tl__thread"/></g>
       </svg>
+      <ol class="tl__list">
       <li class="tl__item">
-        <div class="tl__icon"><svg class="draw" viewBox="0 0 48 48"><use href="#i-akoma-ntoaso"/></svg></div>
-        <div class="tl__body">
+        <figure class="tl__art"><img src="assets/img/tl-1.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
+        <div class="tl__card">
           <p class="tl__time">11:00 <small>– 13:00</small></p>
           <h3 data-i18n="tl.1.t">Cerimonia</h3>
           <p data-i18n="tl.1.d">Lo scambio delle promesse</p>
         </div>
       </li>
       <li class="tl__item">
-        <div class="tl__icon"><svg class="draw" viewBox="0 0 48 48"><use href="#i-chain"/></svg></div>
-        <div class="tl__body">
+        <figure class="tl__art"><img src="assets/img/tl-2.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
+        <div class="tl__card">
           <p class="tl__time">13:00 <small>– 14:30</small></p>
           <h3 data-i18n="tl.2.t">Aperitivo</h3>
           <p data-i18n="tl.2.d">Un brindisi tutti insieme</p>
         </div>
       </li>
       <li class="tl__item">
-        <div class="tl__icon"><svg class="draw" viewBox="0 0 48 48"><use href="#i-adinkrahene"/></svg></div>
-        <div class="tl__body">
+        <figure class="tl__art"><img src="assets/img/tl-3.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
+        <div class="tl__card">
           <p class="tl__time">14:30 <small>– 17:00</small></p>
           <h3 data-i18n="tl.3.t">Pranzo</h3>
           <p data-i18n="tl.3.d">A tavola con chi amiamo</p>
         </div>
       </li>
       <li class="tl__item">
-        <div class="tl__icon"><svg class="draw" viewBox="0 0 48 48"><use href="#i-akoma"/></svg></div>
-        <div class="tl__body">
+        <figure class="tl__art"><img src="assets/img/tl-4.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
+        <div class="tl__card">
           <p class="tl__time">17:00 <small>– 18:00</small></p>
           <h3 data-i18n="tl.4.t">Taglio della torta</h3>
           <p data-i18n="tl.4.d">Il momento più dolce</p>
         </div>
       </li>
       <li class="tl__item">
-        <div class="tl__icon"><svg class="draw" viewBox="0 0 48 48"><use href="#i-nsoromma"/></svg></div>
-        <div class="tl__body">
+        <figure class="tl__art"><img src="assets/img/tl-5.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
+        <div class="tl__card">
           <p class="tl__time">18:00 <small>– 23:00</small></p>
           <h3 data-i18n="tl.5.t">Festa</h3>
           <p data-i18n="tl.5.d">Si balla fino a tarda sera</p>
         </div>
       </li>
-    </ol>
+      </ol>
+    </div>
   </section>
 
   <div class="marquee" aria-hidden="true">
@@ -170,8 +175,8 @@
     <div class="btn-row">
       <a class="btn btn--solid" target="_blank" rel="noopener"
          href="https://www.google.com/maps/dir/?api=1&amp;destination=Villa%20Fenaroli%20Palace%20Hotel%2C%20Via%20Giuseppe%20Mazzini%2014%2C%2025086%20Rezzato%20BS"
-         data-i18n="vn.directions">Indicazioni stradali</a>
-      <button class="btn" type="button" id="copy-addr" data-i18n="vn.copy">Copia indirizzo</button>
+         ><svg class="ic" aria-hidden="true"><use href="#ph-navigation-arrow"/></svg><span data-i18n="vn.directions">Indicazioni stradali</span></a>
+      <button class="btn" type="button" id="copy-addr"><svg class="ic" aria-hidden="true"><use href="#ph-copy"/></svg><span data-i18n="vn.copy">Copia indirizzo</span></button>
     </div>
   </section>
 
@@ -198,11 +203,11 @@
           <legend class="sr-only" data-i18n="rs.attend">Parteciperai?</legend>
           <label class="choice__card">
             <input type="radio" name="presente" value="si" required>
-            <span class="choice__inner"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-akoma"/></svg><span data-i18n="rs.yes">Ci sarò</span></span>
+            <span class="choice__inner"><svg class="ic" aria-hidden="true"><use href="#ph-check-circle"/></svg><span data-i18n="rs.yes">Ci sarò</span></span>
           </label>
           <label class="choice__card">
             <input type="radio" name="presente" value="no">
-            <span class="choice__inner"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-adinkrahene"/></svg><span data-i18n="rs.no">Non potrò esserci</span></span>
+            <span class="choice__inner"><svg class="ic" aria-hidden="true"><use href="#ph-x-circle"/></svg><span data-i18n="rs.no">Non potrò esserci</span></span>
           </label>
         </fieldset>
 
@@ -213,12 +218,12 @@
           <div class="guests">
             <p class="label" data-i18n="rs.guests">Accompagnatori</p>
             <ul class="guests__list" id="guests"></ul>
-            <button class="btn btn--ghost" type="button" id="add-guest" data-i18n="rs.add">+ Aggiungi accompagnatore</button>
+            <button class="btn btn--ghost" type="button" id="add-guest"><svg class="ic" aria-hidden="true"><use href="#ph-user-plus"/></svg><span data-i18n="rs.add">Aggiungi accompagnatore</span></button>
           </div>
         </div>
 
         <p class="form__error" id="rsvp-error" role="alert"></p>
-        <button class="btn btn--solid form__submit" type="submit" data-i18n="rs.send">Invia risposta</button>
+        <button class="btn btn--solid form__submit" type="submit"><svg class="ic" aria-hidden="true"><use href="#ph-paper-plane-tilt"/></svg><span data-i18n="rs.send">Invia risposta</span></button>
       </form>
 
       <div class="thanks" id="rsvp-thanks" hidden tabindex="-1">
@@ -242,7 +247,7 @@
           <label class="field"><span data-i18n="rs.allergies">Allergie o intolleranze</span>
             <input name="g_allergie" maxlength="200" data-i18n-ph="rs.optional" placeholder="Facoltativo"></label>
         </div>
-        <button class="guest__remove" type="button" data-i18n-aria="rs.remove" aria-label="Rimuovi">×</button>
+        <button class="guest__remove" type="button" data-i18n-aria="rs.remove" aria-label="Rimuovi"><svg class="ic" aria-hidden="true"><use href="#ph-trash"/></svg></button>
       </li>
     </template>
   </section>
@@ -258,9 +263,17 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
 
-<!-- Simboli ispirati agli Adinkra (disegnati a mano, originali) -->
+<!-- Simboli ispirati agli Adinkra (disegnati a mano, originali) + icone Phosphor Light (MIT, phosphoricons.com) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <symbol id="ph-check-circle" viewBox="0 0 256 256"><path fill="currentColor" d="M172.24,99.76a6,6,0,0,1,0,8.48l-56,56a6,6,0,0,1-8.48,0l-24-24a6,6,0,0,1,8.48-8.48L112,151.51l51.76-51.75A6,6,0,0,1,172.24,99.76ZM230,128A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z"/></symbol>
+    <symbol id="ph-x-circle" viewBox="0 0 256 256"><path fill="currentColor" d="M164.24,100.24,136.48,128l27.76,27.76a6,6,0,1,1-8.48,8.48L128,136.48l-27.76,27.76a6,6,0,0,1-8.48-8.48L119.52,128,91.76,100.24a6,6,0,0,1,8.48-8.48L128,119.52l27.76-27.76a6,6,0,0,1,8.48,8.48ZM230,128A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z"/></symbol>
+    <symbol id="ph-user-plus" viewBox="0 0 256 256"><path fill="currentColor" d="M254,136a6,6,0,0,1-6,6H230v18a6,6,0,0,1-12,0V142H200a6,6,0,0,1,0-12h18V112a6,6,0,0,1,12,0v18h18A6,6,0,0,1,254,136Zm-57.41,60.14a6,6,0,1,1-9.18,7.72C166.9,179.45,138.69,166,108,166s-58.89,13.45-79.41,37.86a6,6,0,0,1-9.18-7.72C35.14,177.41,55,164.48,77,158.25a66,66,0,1,1,62,0C161,164.48,180.86,177.41,196.59,196.14ZM108,154a54,54,0,1,0-54-54A54.06,54.06,0,0,0,108,154Z"/></symbol>
+    <symbol id="ph-trash" viewBox="0 0 256 256"><path fill="currentColor" d="M216,50H174V40a22,22,0,0,0-22-22H104A22,22,0,0,0,82,40V50H40a6,6,0,0,0,0,12H50V208a14,14,0,0,0,14,14H192a14,14,0,0,0,14-14V62h10a6,6,0,0,0,0-12ZM94,40a10,10,0,0,1,10-10h48a10,10,0,0,1,10,10V50H94ZM194,208a2,2,0,0,1-2,2H64a2,2,0,0,1-2-2V62H194ZM110,104v64a6,6,0,0,1-12,0V104a6,6,0,0,1,12,0Zm48,0v64a6,6,0,0,1-12,0V104a6,6,0,0,1,12,0Z"/></symbol>
+    <symbol id="ph-paper-plane-tilt" viewBox="0 0 256 256"><path fill="currentColor" d="M225.88,30.12a13.83,13.83,0,0,0-13.7-3.58l-.11,0L20.14,84.77A14,14,0,0,0,18,110.85l85.56,41.64L145.12,238a13.87,13.87,0,0,0,12.61,8c.4,0,.81,0,1.21-.05a13.9,13.9,0,0,0,12.29-10.09l58.2-191.93,0-.11A13.83,13.83,0,0,0,225.88,30.12Zm-8,10.4L159.73,232.43l0,.11a2,2,0,0,1-3.76.26l-40.68-83.58,49-49a6,6,0,1,0-8.49-8.49l-49,49L23.15,100a2,2,0,0,1,.31-3.74l.11,0L215.48,38.08a1.94,1.94,0,0,1,1.92.52A2,2,0,0,1,217.92,40.52Z"/></symbol>
+    <symbol id="ph-calendar-plus" viewBox="0 0 256 256"><path fill="currentColor" d="M208,34H182V24a6,6,0,0,0-12,0V34H86V24a6,6,0,0,0-12,0V34H48A14,14,0,0,0,34,48V208a14,14,0,0,0,14,14H208a14,14,0,0,0,14-14V48A14,14,0,0,0,208,34ZM48,46H74V56a6,6,0,0,0,12,0V46h84V56a6,6,0,0,0,12,0V46h26a2,2,0,0,1,2,2V82H46V48A2,2,0,0,1,48,46ZM208,210H48a2,2,0,0,1-2-2V94H210V208A2,2,0,0,1,208,210Zm-50-58a6,6,0,0,1-6,6H134v18a6,6,0,0,1-12,0V158H104a6,6,0,0,1,0-12h18V128a6,6,0,0,1,12,0v18h18A6,6,0,0,1,158,152Z"/></symbol>
+    <symbol id="ph-navigation-arrow" viewBox="0 0 256 256"><path fill="currentColor" d="M236.65,108.1,60.72,42.83l-.13,0A14,14,0,0,0,42.78,60.59s0,.09,0,.13L108.1,236.65A13.77,13.77,0,0,0,121.28,246h.26a13.8,13.8,0,0,0,13.14-9.88l0-.15,22.14-79.1L236,134.73l.15,0a14,14,0,0,0,.53-26.58Zm-4,15.1-82.26,23a6,6,0,0,0-4.16,4.16l-23,82.26a1.85,1.85,0,0,1-1.86,1.36,1.82,1.82,0,0,1-1.92-1.35.61.61,0,0,0,0-.12L54.11,56.62a2,2,0,0,1,2.51-2.51l175.91,65.26.12,0a2,2,0,0,1,0,3.79Z"/></symbol>
+    <symbol id="ph-copy" viewBox="0 0 256 256"><path fill="currentColor" d="M216,34H88a6,6,0,0,0-6,6V82H40a6,6,0,0,0-6,6V216a6,6,0,0,0,6,6H168a6,6,0,0,0,6-6V174h42a6,6,0,0,0,6-6V40A6,6,0,0,0,216,34ZM162,210H46V94H162Zm48-48H174V88a6,6,0,0,0-6-6H94V46H210Z"/></symbol>
     <g id="i-akoma-ntoaso" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
       <path pathLength="1" d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
       <path pathLength="1" transform="rotate(90 24 24)" d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
