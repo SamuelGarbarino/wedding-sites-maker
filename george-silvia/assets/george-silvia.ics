@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//wedding-sites-maker//george-silvia//IT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:george-silvia-20270918@wedding-sites-maker
+DTSTAMP:20261126T000000Z
+DTSTART:20270918T090000Z
+DTEND:20270918T210000Z
+SUMMARY:Matrimonio George & Silvia
+LOCATION:Villa Fenaroli Palace Hotel\, Via Giuseppe Mazzini 14\, 25086 Rezzato BS
+DESCRIPTION:Cerimonia 11:00 · Aperitivo 13:00 · Pranzo 14:30 · Taglio torta 17:00 · Festa 18:00-23:00
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Matrimonio George & Silvia
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

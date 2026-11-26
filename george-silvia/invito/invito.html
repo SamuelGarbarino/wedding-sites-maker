@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Invito · George &amp; Silvia</title>
+<!-- A5 148×210 mm + 3 mm di abbondanza per lato. Lingua: invito.html?lang=en -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Italiana&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  @page { size: 154mm 216mm; margin: 0; }
+  :root { --emerald: #0F4D3A; --deep: #0b2e23; --gold: #C9A13B; --gold-soft: #e3c77a; --crimson: #8C1C24; --ivory: #F4EDE0; --ink: #14110D;
+    --foil: linear-gradient(100deg, #8a6a1f 0%, #c9a13b 18%, #f6e3a1 34%, #c9a13b 50%, #a07c2a 66%, #e8cd7c 82%, #b48c2f 100%); }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; background: #555; }
+  body { font: 300 10pt/1.5 "DM Sans", sans-serif; display: grid; gap: 10mm; justify-content: center; padding: 10mm 0; }
+  @media print { body { display: block; padding: 0; background: none; } }
+  .page { position: relative; width: 154mm; height: 216mm; overflow: hidden; page-break-after: always; break-after: page; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .safe { position: absolute; inset: 11mm; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .script { font-family: "Pinyon Script", cursive; color: var(--gold); margin: 0; }
+  .label { font: 500 6.6pt/1.4 "DM Sans"; letter-spacing: .3em; text-transform: uppercase; margin: 0; }
+  .foil { background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ---------- fronte ---------- */
+  .front { background: var(--deep); color: var(--ivory); }
+  .front img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+  .front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,15,11,.45) 0%, rgba(5,15,11,0) 45%, rgba(11,31,24,.25) 100%); }
+  .front .safe { z-index: 1; padding-top: 6mm; }
+  .front .kicker { font-size: 17pt; }
+  .names { font: 400 54pt/.86 "Italiana", serif; letter-spacing: -.01em; text-transform: uppercase; margin: 2mm 0 4mm; }
+  .names span { display: block; }
+  .names .and { font-family: "Pinyon Script"; text-transform: none; font-size: .62em; line-height: .9; color: var(--gold-soft); }
+  .invite { margin: 0 0 6mm; font-size: 10pt; opacity: .9; }
+  .date { font: 400 17pt/1 "Italiana"; color: var(--gold-soft); letter-spacing: .08em; display: flex; gap: 4mm; align-items: center; margin: 0 0 3mm; }
+  .date i { width: 1.6mm; height: 1.6mm; background: var(--gold); transform: rotate(45deg); }
+  .front .label { opacity: .85; }
+
+  /* ---------- retro ---------- */
+  .back { background: var(--ivory); color: var(--deep); }
+  .back .safe { inset: 14mm 13mm 22mm; justify-content: space-between; }
+  .back .kicker { font-size: 18pt; color: #a8832a; }
+  .back h2 { font: 400 30pt/1 "Italiana"; color: var(--emerald); margin: 0 0 7mm; }
+  .tl { list-style: none; margin: 0 0 7mm; padding: 0; width: 100%; position: relative; }
+  .tl::before { content: ""; position: absolute; left: 50%; top: 2mm; bottom: 2mm; width: .25mm; background: var(--gold); }
+  .tl li { display: grid; grid-template-columns: 1fr 12mm 1fr; align-items: center; margin-bottom: 4.2mm; }
+  .tl svg { grid-column: 2; width: 10mm; height: 10mm; color: var(--gold); background: var(--ivory); border-radius: 50%; justify-self: center; position: relative; }
+  .tl .time { grid-column: 1; text-align: right; padding-right: 2mm; font: 400 17pt/1 "Italiana"; color: var(--emerald); }
+  .tl .time small { font-size: .55em; opacity: .7; }
+  .tl .what { grid-column: 3; text-align: left; padding-left: 2mm; font: 500 6.8pt/1.3 "DM Sans"; letter-spacing: .24em; text-transform: uppercase; }
+  .venue { font: 400 13pt/1.15 "Italiana"; color: var(--emerald); margin: 0 0 1mm; }
+  .addr { margin: 0 0 6mm; font-size: 8.6pt; }
+  .rsvp { display: flex; align-items: center; gap: 5mm; text-align: left; border-top: .2mm solid rgba(15,77,58,.3); padding-top: 5mm; width: 100%; }
+  .rsvp p { margin: 0; }
+  .rsvp .t { font: 400 13pt/1.1 "Italiana"; color: var(--emerald); margin-bottom: 1.2mm; }
+  .rsvp .s { font-size: 8pt; }
+  .rsvp .u { font-size: 7pt; opacity: .7; margin-top: 1mm; word-break: break-all; }
+  .qr { flex: 0 0 22mm; height: 22mm; }
+  .qr svg { width: 100%; height: 100%; display: block; }
+  .kente { position: absolute; left: 0; right: 0; bottom: 0; height: 9mm;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 .3mm, transparent .3mm .9mm),
+      repeating-linear-gradient(90deg, var(--gold) 0 9mm, var(--ink) 9mm 10mm, var(--emerald) 10mm 15.5mm, var(--gold) 15.5mm 16.5mm,
+        var(--emerald) 16.5mm 22mm, var(--ink) 22mm 23mm, var(--gold) 23mm 32mm, var(--crimson) 32mm 35mm, var(--gold) 35mm 36.5mm, var(--crimson) 36.5mm 39.5mm); }
+
+  /* ---------- fodera busta ---------- */
+  .liner { background: var(--deep); }
+  .liner svg { width: 100%; height: 100%; display: block; }
+</style>
+</head>
+<body>
+
+<!-- FRONTE -->
+<section class="page front">
+  <img src="../assets/img/hero-portrait.jpg" alt="">
+  <div class="safe">
+    <p class="script kicker" data-t="kicker">Insieme alle loro famiglie</p>
+    <h1 class="names"><span class="foil">George</span><span class="and">&amp;</span><span class="foil">Silvia</span></h1>
+    <p class="invite" data-t="invite">vi invitano a celebrare il loro matrimonio</p>
+    <p class="date"><span>18</span><i></i><span>09</span><i></i><span>2027</span></p>
+    <p class="label" data-t="when">Sabato · ore 11:00</p>
+    <p class="label" style="margin-top:1.5mm">Villa Fenaroli Palace Hotel · Rezzato (BS)</p>
+  </div>
+</section>
+
+<!-- RETRO -->
+<section class="page back">
+  <div class="safe">
+    <p class="script kicker" data-t="day">Il nostro giorno</p>
+    <h2 data-t="program">Il programma</h2>
+    <ol class="tl">
+      <li><span class="time">11:00 <small>– 13:00</small></span><svg viewBox="0 0 48 48"><use href="#i-akoma-ntoaso"/></svg><span class="what" data-t="t1">Cerimonia</span></li>
+      <li><span class="time">13:00 <small>– 14:30</small></span><svg viewBox="0 0 48 48"><use href="#i-chain"/></svg><span class="what" data-t="t2">Aperitivo</span></li>
+      <li><span class="time">14:30 <small>– 17:00</small></span><svg viewBox="0 0 48 48"><use href="#i-adinkrahene"/></svg><span class="what" data-t="t3">Pranzo</span></li>
+      <li><span class="time">17:00 <small>– 18:00</small></span><svg viewBox="0 0 48 48"><use href="#i-akoma"/></svg><span class="what" data-t="t4">Taglio della torta</span></li>
+      <li><span class="time">18:00 <small>– 23:00</small></span><svg viewBox="0 0 48 48"><use href="#i-nsoromma"/></svg><span class="what" data-t="t5">Festa</span></li>
+    </ol>
+    <p class="venue">Villa Fenaroli Palace Hotel</p>
+    <p class="addr">Via Giuseppe Mazzini, 14 · 25086 Rezzato (BS)</p>
+    <div class="rsvp">
+      <div class="qr" id="qr"></div>
+      <div>
+        <p class="t" data-t="rsvp">Conferma la tua presenza</p>
+        <p class="s" data-t="rsvp2">Inquadra il codice entro il 30 giugno 2027: troverai il programma, la mappa e il modulo di risposta.</p>
+        <p class="u">samuelgarbarino.github.io/wedding-sites-maker/george-silvia</p>
+      </div>
+    </div>
+  </div>
+  <div class="kente"></div>
+</section>
+
+<!-- FODERA BUSTA (pattern kente) -->
+<section class="page liner" id="liner"></section>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="i-akoma-ntoaso" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
+      <path transform="rotate(90 24 24)" d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
+      <path transform="rotate(180 24 24)" d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
+      <path transform="rotate(270 24 24)" d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
+      <circle cx="24" cy="24" r="3"/><circle cx="24" cy="24" r="21"/>
+    </g>
+    <g id="i-chain" fill="none" stroke="currentColor" stroke-width="1.6">
+      <path d="M6 24a10 6.5 0 1 0 20 0a10 6.5 0 1 0-20 0"/><path d="M22 24a10 6.5 0 1 0 20 0a10 6.5 0 1 0-20 0"/><circle cx="24" cy="24" r="21"/>
+    </g>
+    <g id="i-adinkrahene" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="24" cy="24" r="4"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="21"/>
+    </g>
+    <g id="i-akoma" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M24 17c0-7-11-8-11 0 0 7 11 15 11 15s11-8 11-15c0-8-11-7-11 0z"/><path d="M24 22v6"/><circle cx="24" cy="24" r="21"/>
+    </g>
+    <g id="i-nsoromma" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+      <path d="M24 6l3.06 10.61L36.73 11.27l-5.34 9.67L42 24l-10.61 3.06 5.34 9.67-9.67-5.34L24 42l-3.06-10.61-9.67 5.34 5.34-9.67L6 24l10.61-3.06-5.34-9.67 9.67 5.34z"/><circle cx="24" cy="24" r="3"/>
+    </g>
+  </defs>
+</svg>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script>
+  const EN = {
+    kicker: "Together with their families", invite: "invite you to celebrate their wedding", when: "Saturday · 11:00 am",
+    day: "Our day", program: "The schedule", t1: "Ceremony", t2: "Aperitivo", t3: "Wedding lunch", t4: "Cake cutting", t5: "Party",
+    rsvp: "Kindly reply", rsvp2: "Scan the code by 30 June 2027 to find the schedule, the map and the reply form.",
+  };
+  if (new URLSearchParams(location.search).get("lang") === "en") {
+    document.documentElement.lang = "en";
+    document.querySelectorAll("[data-t]").forEach((el) => (el.textContent = EN[el.dataset.t]));
+  }
+
+  const qr = qrcode(0, "M");
+  qr.addData("https://samuelgarbarino.github.io/wedding-sites-maker/george-silvia/");
+  qr.make();
+  document.getElementById("qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }).replace(/fill="black"/g, 'fill="#0F4D3A"').replace(/<rect[^>]*fill="white"[^>]*\/>/, "");
+
+  // fodera: strisce kente a blocchi (stesso disegno dell'intro del sito)
+  const rows = 14, cols = 8, h = 1000 / rows, w = 1000 / cols;
+  const solid = ["#0F4D3A", "#8C1C24", "#14110D", "#0F4D3A"], lines = ["#0F4D3A", "#8C1C24", "#14110D"];
+  let s = "";
+  for (let i = 0; i < rows; i++)
+    for (let j = 0; j < cols; j++) {
+      const x = j * w, y = i * h;
+      s += `<rect x="${x}" y="${y}" width="${w + .5}" height="${h + .5}" fill="${(i + j) % 2 ? solid[(i + (j >> 1)) % 4] : "#C9A13B"}"/>`;
+      if ((i + j) % 2 === 0) lines.forEach((c, k) => (s += `<rect x="${x}" y="${y + h * (0.22 + k * 0.24)}" width="${w + .5}" height="${h * 0.08}" fill="${c}"/>`));
+    }
+  for (let k = 1; k < 64; k++) s += `<line x1="${k * 15.625}" y1="0" x2="${k * 15.625}" y2="1000" stroke="rgba(20,17,13,.25)" stroke-width=".6"/>`;
+  document.getElementById("liner").innerHTML = `<svg viewBox="0 0 1000 1000" preserveAspectRatio="none">${s}</svg>`;
+</script>
+</body>
+</html>
