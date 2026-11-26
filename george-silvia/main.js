@@ -387,8 +387,13 @@ void main(){
     };
     size();
     addEventListener("resize", size);
-    // coperto del tutto a fine scroll dell'hero, quando resta visibile solo la sua parte bassa
-    ScrollTrigger.create({ trigger: "#hero", start: "top top", end: "bottom top", onUpdate: (st) => { p = Math.min(st.progress * 1.12, 1.1); draw(); } });
+    // bordo medio b (coordinate hero, 0 = fondo) che sale con lo scroll ma resta nella parte ancora visibile (1 - s):
+    // l'avorio non supera ~1/3 di schermo e non arretra mai. 0.13 = media del rumore fbm*.3.
+    ScrollTrigger.create({ trigger: "#hero", start: "top top", end: "bottom top", onUpdate: (st) => {
+      const s = st.progress, b = s < 0.5 ? s * (1 - s) : s / 2;
+      p = (b + 0.13 * Math.min(1, s * 4)) / 1.2;
+      draw();
+    } });
   }
 
   function scrollAnims() {
