@@ -1,6 +1,14 @@
 # HANDOFF — Wedding Sites Maker · George & Silvia
 
-Ultimo aggiornamento: 26/11/2026
+Ultimo aggiornamento: 26/11/2026 (sera)
+
+## Riparti da qui
+Stato: sito online su GitHub Pages, invito PDF IT/EN pronto, RSVP non ancora attivo (manca il deploy di Apps Script da parte di Samuel).
+Richiesta aperta di Samuel (in ordine):
+1. **Spiegare le scelte di stile** (sfondi, icone Adinkra, palette, font, animazioni) e perché: non ancora fatto.
+2. **Integrare lo shader WebGL** di `Ironhill-section-rebuild-main/` (studiato, non integrato). Cosa fa: piano Three.js r128 a tutto schermo con fragment shader che "dissolve" un colore pieno dal basso verso l'alto con bordo frastagliato da rumore fbm, guidato dallo scroll (`uProgress`). Idea di adattamento: hero più alto, il colore avorio `#F4EDE0` sale e copre la foto kente con bordo organico, raccordandosi con la sezione countdown; Three.js da CDN; disattivato con `prefers-reduced-motion` e fallback senza WebGL. La cartella Ironhill NON va nel repo (contiene font PP Woodland con licenza).
+3. **Revisione UX/UI con agenti separati** (Samuel l'ha chiesta esplicitamente), poi applicare le correzioni e fare push.
+
 
 ## Il matrimonio
 - **Sposi:** George & Silvia — matrimonio tradizionale ganese
