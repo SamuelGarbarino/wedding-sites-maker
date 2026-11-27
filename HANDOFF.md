@@ -1,9 +1,21 @@
 # HANDOFF — Wedding Sites Maker · George & Silvia
 
-Ultimo aggiornamento: 27/11/2026 (sera)
+Ultimo aggiornamento: 27/11/2026 (feedback sposi)
 
 ## Riparti da qui
-Stato (27/11/2026): sito online con la dissolvenza WebGL nell'hero (il bordo segue lo scroll e resta visibile, avorio al massimo ~1/3 di schermo) e le correzioni della revisione UX/UI; invito PDF IT/EN pronto; RSVP non ancora attivo (manca il deploy di Apps Script da parte di Samuel).
+Stato (27/11/2026, feedback degli sposi applicato): sito online, ultimo commit `4c58b2d`. RSVP non ancora attivo (manca il deploy di Apps Script). Pagamento concordato in due rate; preventivo da firmare pronto in `preventivo/` (NON committare: repo pubblico, contiene dati del cliente).
+Prossimo passo: mandare a George il messaggio per chiedere se va bene il preventivo da firmare, poi inviare il PDF (compilare a mano codice fiscale, indirizzo e cognomi). Sul sito: prova su telefono vero (busta, hero con frase lunga), aggiornare `og.jpg` col nuovo kente, deploy Apps Script.
+
+**Fatto il 27/11 (feedback degli sposi, commit `4161961`, `8658cc8`, `2ce1651`, `4c58b2d`):**
+- **Intro = busta interattiva.** Busta smeraldo a schermo intero, lembo SVG che si apre (`rotateX`), sigillo oro con il Gye Nyame al centro (SVG CC0 di kasahorow/Openclipart da Wikimedia), sotto il versetto «Così non sono più due, ma una sola carne; quello dunque che Dio ha unito, l'uomo non lo separi.» Matteo 19:6 (EN in traduzione corrente). La timeline GSAP si ferma con `addPause` finché l'ospite non tocca la busta (hint "Tocca la busta per aprirla" che pulsa, sigillo è un `<button>` con focus). "Salta" apre subito. Il failsafe CSS a tempo viene annullato dal JS (`intro.style.animation = "none"`), resta solo se il JS non parte.
+- **Glow:** luce oro solo attorno al sigillo (`.env__glow`, radiale max 460 px, `mix-blend-mode: screen`, pulsa) e sui bordi del lembo (`drop-shadow` sul `.env__flap`). All'apertura si allarga e sfuma.
+- **Hero:** "Insieme alla nostra famiglia, abbiamo l'onore di invitarvi al" / "Together with our family, we humbly request the honour of your presence at the", poi "MATRIMONIO TRADIZIONALE PRIVATO" / "PRIVATE TRADITIONAL WEDDING" in oro, "di"/"of" in corsivo, nomi, due fedi intrecciate SVG che si disegnano. Tolti Akwaaba e "Insieme alle loro famiglie vi invitano". Nuovo kente (drappo intero, lato scuro a destra / sopra su mobile): `hero-kente2.webp|jpg`, `hero-kente2-portrait.webp` (originali in `Documents/Media Gen/2026-11-27-hero-kente-2-*`).
+- **Dress code:** sezione nuova tra Luogo e RSVP, tre campioni di stoffa in CSS (Kente, Abito tradizionale, Elegante) e una frase.
+- **Timeline:** gli sposi hanno scelto lo stile C "illustrazione di moda" su 3 proposte (artefatto https://claude.ai/artifact/RoyLfbR1t4YGPh43tg2ro7). Tutte e 5 rifatte con `media-gen` (nano-banana-pro-edit, con la vecchia scena e la cerimonia C come riferimenti), `tl-1..5.webp` a 720 px.
+- **Cliente:** 200 € in due rate (100 entro 31/12/2026, 100 entro 18/06/2027), preventivo A4 `preventivo/preventivo-george-silvia.pdf` (150 sito + 50 assistenza, esclusi nuove sezioni e cambi grafici, prestazione occasionale).
+- Non fatto: `og.jpg` mostra ancora il kente vecchio; `hero.webp`/`hero-portrait.webp` vecchi ancora nella cartella; modifiche all'invito (`invito.html`, PDF, `qr.svg`) in sospeso da prima, non committate.
+
+**Prima (27/11, sera):** sito con la dissolvenza WebGL nell'hero e le correzioni della revisione UX/UI; invito PDF IT/EN pronto.
 - **Shader:** adattato da `Ironhill-section-rebuild-main/` in WebGL puro (niente Three.js), funzione `heroVeil()` in `main.js`, canvas `.hero__veil`. Disattivato con `prefers-reduced-motion`; senza WebGL il canvas viene rimosso.
 - **Revisione UX/UI fatta** (due agenti). Applicato: contrasti WCAG, target tattili da 44 px, nav più opaca, bottone RSVP smeraldo, localStorage protetto, timeout di 15 s sull'invio, focus sul primo campo errato, ARIA dell'intro, ancore `/#rsvp` dopo l'intro, "È oggi!" dopo la data.
 - **Non fatto (scelte):** pulsante "Modifica risposta", intro solo alla prima visita, traduzione titolo mappa e dettagli calendario, contatto WhatsApp nel messaggio d'errore (serve il numero degli sposi).
@@ -66,7 +78,7 @@ apps-script/Code.gs                           backend RSVP
 ```
 
 ## Animazioni (cosa c'è)
-1. Intro: i fili dell'ordito si tendono, i blocchi kente si tessono riga per riga, al centro si disegna in oro l'Akoma Ntoaso ("cuori uniti"), poi il tessuto si apre a sipario sull'hero. Si può saltare.
+1. Intro: busta chiusa con sigillo Gye Nyame e Matteo 19:6, si apre solo al tocco dell'ospite (glow oro dal lembo), poi si divide sull'hero. Si può saltare.
 2. Hero: lamina oro dei nomi con riflesso che segue il mouse, nomi che entrano sfocati, parallasse.
 3. Countdown con cifre che scorrono · nastri kente che scorrono con lo scroll · titoli che salgono dalla maschera.
 4. Programma: filo d'oro che si tesse durante lo scroll, simboli Adinkra disegnati a tratto.
