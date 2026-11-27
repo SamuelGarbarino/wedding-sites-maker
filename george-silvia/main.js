@@ -453,6 +453,14 @@ void main(){
       gsap.from($(".tl__card", item), { y: 48, opacity: 0, duration: 1.1, delay: 0.1, ease: "expo.out", scrollTrigger: st });
     });
 
+    // mappa del luogo: strade che si disegnano, percorso dalla A4, spillo che cade
+    const mt = gsap.timeline({ scrollTrigger: { trigger: ".venue__map", start: "top 70%", once: true } });
+    mt.fromTo(".map__streets path, .map__road, .map__a4", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1.4, stagger: 0.06, ease: "power2.inOut" })
+      .fromTo(".map__labels", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.6")
+      .fromTo(".map__route", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1.2, ease: "power1.inOut" })
+      .from(".map__drop", { y: -120, opacity: 0, duration: 0.8, ease: "bounce.out" }, "-=0.2")
+      .from(".map__tag", { opacity: 0, x: -12, duration: 0.6, ease: "expo.out" });
+
     // simbolo del footer
     ScrollTrigger.create({ trigger: ".footer", start: "top 85%", once: true, onEnter: () => drawIn($(".footer__symbol")) });
   }

@@ -113,40 +113,40 @@
       <li class="tl__item">
         <figure class="tl__art"><img src="assets/img/tl-1.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
         <div class="tl__card">
-          <p class="tl__time">11:00 <small>– 13:00</small></p>
           <h3 data-i18n="tl.1.t">Cerimonia</h3>
+          <p class="tl__time">11:00 <span>– 13:00</span></p>
           <p data-i18n="tl.1.d">Lo scambio delle promesse</p>
         </div>
       </li>
       <li class="tl__item">
         <figure class="tl__art"><img src="assets/img/tl-2.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
         <div class="tl__card">
-          <p class="tl__time">13:00 <small>– 14:30</small></p>
           <h3 data-i18n="tl.2.t">Aperitivo</h3>
+          <p class="tl__time">13:00 <span>– 14:30</span></p>
           <p data-i18n="tl.2.d">Un brindisi tutti insieme</p>
         </div>
       </li>
       <li class="tl__item">
         <figure class="tl__art"><img src="assets/img/tl-3.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
         <div class="tl__card">
-          <p class="tl__time">14:30 <small>– 17:00</small></p>
           <h3 data-i18n="tl.3.t">Pranzo</h3>
+          <p class="tl__time">14:30 <span>– 17:00</span></p>
           <p data-i18n="tl.3.d">A tavola con chi amiamo</p>
         </div>
       </li>
       <li class="tl__item">
         <figure class="tl__art"><img src="assets/img/tl-4.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
         <div class="tl__card">
-          <p class="tl__time">17:00 <small>– 18:00</small></p>
           <h3 data-i18n="tl.4.t">Taglio della torta</h3>
+          <p class="tl__time">17:00 <span>– 18:00</span></p>
           <p data-i18n="tl.4.d">Il momento più dolce</p>
         </div>
       </li>
       <li class="tl__item">
         <figure class="tl__art"><img src="assets/img/tl-5.webp" alt="" width="720" height="720" loading="lazy" decoding="async"></figure>
         <div class="tl__card">
-          <p class="tl__time">18:00 <small>– 23:00</small></p>
           <h3 data-i18n="tl.5.t">Festa</h3>
+          <p class="tl__time">18:00 <span>– 23:00</span></p>
           <p data-i18n="tl.5.d">Si balla fino a tarda sera</p>
         </div>
       </li>
@@ -169,8 +169,37 @@
     <h2 class="title" data-split-lines>Villa Fenaroli<br>Palace Hotel</h2>
     <address class="venue__addr">Via Giuseppe Mazzini, 14<br>25086 Rezzato (BS)</address>
     <div class="venue__map">
-      <iframe title="Mappa Villa Fenaroli Palace Hotel" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=Villa+Fenaroli+Palace+Hotel,+Via+Giuseppe+Mazzini+14,+25086+Rezzato+BS&amp;z=15&amp;output=embed"></iframe>
+      <!-- mappa illustrata: schematica, non in scala -->
+      <svg class="map" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mappa: Villa Fenaroli a Rezzato, a est di Brescia, vicino all'autostrada A4" data-i18n-aria="vn.map">
+        <rect width="800" height="450" fill="#EFE6D3"/>
+        <path class="map__park" d="M520 60c60-20 140 0 170 40s-10 90-80 90-130-30-120-70 0-50 30-60Z"/>
+        <path class="map__park" d="M90 300c40-30 120-20 140 20s-30 70-90 60-80-50-50-80Z"/>
+        <g class="map__streets">
+          <path pathLength="1" d="M300 0 L330 450"/><path pathLength="1" d="M520 0 L500 450"/>
+          <path pathLength="1" d="M0 120 L800 140"/><path pathLength="1" d="M180 0 L240 450"/>
+          <path pathLength="1" d="M640 0 L620 450"/><path pathLength="1" d="M0 330 L800 300"/>
+          <path pathLength="1" d="M380 0 L430 210 L470 450"/>
+        </g>
+        <path class="map__road" pathLength="1" d="M-10 230 C 200 220, 330 245, 430 228 S 650 200, 810 215"/>
+        <path class="map__a4" pathLength="1" d="M-10 400 C 220 380, 420 395, 560 370 S 740 345, 810 350"/>
+        <path class="map__route" pathLength="1" d="M540 373 C 520 330, 470 300, 462 262 S 440 236, 430 222"/>
+        <g class="map__labels">
+          <text x="150" y="208">← Brescia</text>
+          <text class="map__town" x="610" y="300" text-anchor="middle">Rezzato</text>
+          <g transform="translate(250 392)"><rect x="-22" y="-15" width="44" height="26" rx="6" fill="#0F4D3A"/><text class="map__shield" x="0" y="4" text-anchor="middle">A4</text></g>
+        </g>
+        <g class="map__pin" transform="translate(430 222)">
+          <circle class="map__pulse" r="18"/>
+          <g class="map__drop">
+            <path d="M0 0 C -6 -14 -22 -24 -22 -42 a22 22 0 0 1 44 0 C 22 -24 6 -14 0 0Z" fill="#8C1C24" stroke="#F4EDE0" stroke-width="3"/>
+            <circle cy="-42" r="8" fill="#F4EDE0"/>
+          </g>
+          <g class="map__tag" transform="translate(32 -62)">
+            <rect width="170" height="40" rx="20" fill="#F4EDE0" stroke="#C9A13B" stroke-width="1.5"/>
+            <text x="85" y="26" text-anchor="middle">Villa Fenaroli</text>
+          </g>
+        </g>
+      </svg>
     </div>
     <div class="btn-row">
       <a class="btn btn--solid" target="_blank" rel="noopener"
