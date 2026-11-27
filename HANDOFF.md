@@ -27,7 +27,14 @@ Stato (27/11/2026): sito online con la dissolvenza WebGL nell'hero (il bordo seg
 - Sezione Dove: niente più iframe Google Maps. Mappa SVG illustrata ricalcata da OpenStreetMap (villa a 45.51508, 10.31151): via Mazzini/SS45bis, parco della villa, ferrovia, tangenziale sud, A4, colli (Colle San Pietro, Monte Regogna), Rezzato, Brescia, Botticino, bussola. Animazione GSAP: zone, strade, percorso oro, spillo che cade. Su mobile la mappa è quadrata (le etichette stanno tra x 175 e 625 del viewBox).
 - Critica dell'hero con 3 agenti EGM (zoom-out, comprehension, inventive-catalyst). Consigli NON ancora applicati: togliere "Insieme alle loro famiglie vi invitano a festeggiare", data e luogo su una riga con il mese in lettere, & più visibile, logo G&S quasi invisibile su desktop sopra l'hero (da capire), "Conferma presenza" su due righe nella nav mobile.
 
-Prossimo passo: decidere con Samuel quali consigli degli agenti applicare all'hero; poi prova su un telefono vero (nastro, illustrazioni, mappa) (finora solo browser desktop e simulazione 375 px). Poi: deploy Apps Script e test di una RSVP reale; confermare scadenza e testi con gli sposi.
+**Fatto il 27/11 (notte, invito cartaceo, commit `89b7a4f` + successivo):**
+- Stampa scelta: **senza lamina**, A5 fronte/retro, carta patinata opaca 350 g, oro come colore pieno. Tipografie confrontate (100 pezzi): Onlineprinters ~57 € + IVA (A5 350 g), Tipografia Former ~55 €, Pixartprinting (carte pregiate, niente buste), Graf Roma 35 € + IVA (300 g). Buste C5 a parte (~0,10-0,20 € l'una). Con lamina sarebbero ~60-130 € + IVA.
+- `invito.html` ora a **2 pagine** (tolta la fodera busta). Fronte: solo i nomi in variante F (Cormorant corsivo 72 pt, sfalsati, & trasparente dietro), data in Cormorant 500 24 pt con cifre lining, giorno/ora e luogo. Tolti Akwaaba e "Insieme alle loro famiglie...".
+- Retro: programma **variante E** scelta da Samuel su 6 (artefatto https://claude.ai/artifact/BGTyEDLVgrS4MnjN8GvqVp): ora d'inizio grande in Cormorant 500 30 pt (l'"1" di Italiana sembrava una "I"), icone Phosphor Light in cerchi oro (cuore, calice, forchetta e coltello, torta, note), "FINO ALLE 13:00" come etichetta maiuscola, righe pari sfalsate di 14,5 mm (= icona + spazio), filetti oro al 40% a piena larghezza, titolo in alto con aria sotto, margini a 14 mm dal taglio.
+- Revisione di 5 agenti designer (tipografia, layout, prestampa, brand/cultura, leggibilità): applicati quasi tutti i consigli. Non applicati: simboli Adinkra al posto delle icone (Samuel vuole icone riconoscibili), telefono degli sposi sotto il QR (manca il numero), banda kente ritagliata dalla foto.
+- Rischi di stampa: PDF in RGB senza TrimBox/BleedBox; filetti trasparenti possono retinare. Prima di ordinare chiedere alla tipografia profilo colore e conversione CMYK, prova colore, corpo minimo, abbondanza (3 mm). Provare la scansione del QR sulla prova stampata.
+
+Prossimo passo: ordinare una copia di prova dell'invito (verde smeraldo, oro, filetti, QR); confermare con gli sposi scadenza RSVP (ora 30/06/2027) e numero di invitati. Sul sito: decidere quali consigli EGM applicare all'hero, prova su telefono vero, deploy Apps Script.
 
 ## Il matrimonio
 - **Sposi:** George & Silvia — matrimonio tradizionale ganese
@@ -85,7 +92,7 @@ Nota: se modifichi `Code.gs` dopo il deploy, serve **Gestisci deployment → Mod
 
 ### 3. Invito cartaceo
 - Rigenerare i PDF dopo modifiche: servire la cartella (`python -m http.server 5173` dalla root) e lanciare l'export Playwright (vedi sezione Comandi).
-- Per la tipografia: formato finito A5 148×210 mm, PDF con 3 mm di abbondanza (154×216 mm). Nomi in oro: chiedere **lamina a caldo oro** sulla scritta GEORGE & SILVIA (serve un file vettoriale separato per la lamina, da preparare quando si sceglie la tipografia). Pagina 3 = fodera busta.
+- Per la tipografia: formato finito A5 148×210 mm, PDF a 2 pagine con 3 mm di abbondanza (154×216 mm), stampa senza lamina (oro come colore). Export: `python -I export.py <cartella invito>` con Playwright/Chrome, `prefer_css_page_size=True`.
 
 ## Comandi
 ```powershell

@@ -6,7 +6,7 @@
 <!-- A5 148×210 mm + 3 mm di abbondanza per lato, 2 pagine (fronte/retro), senza lamina. Lingua: invito.html?lang=en -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Italiana&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Italiana&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
   @page { size: 154mm 216mm; margin: 0; }
   :root { --emerald: #0F4D3A; --deep: #0b2e23; --gold: #C9A13B; --gold-soft: #e3c77a; --crimson: #8C1C24; --ivory: #F4EDE0; --ink: #14110D;  }
@@ -27,34 +27,40 @@
   .front img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
   .front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,15,11,.45) 0%, rgba(5,15,11,0) 45%, rgba(11,31,24,.25) 100%); }
   .front .safe { z-index: 1; padding-top: 6mm; }
-  .front .kicker { font-size: 17pt; }
-  .names { font: 400 54pt/.86 "Italiana", serif; letter-spacing: -.01em; text-transform: uppercase; margin: 2mm 0 4mm; }
+  .names { position: relative; width: 4.6em; font: italic 500 72pt/.9 "Cormorant Garamond", serif; text-align: left; margin: 8mm 0 10mm; }
   .names span { display: block; }
-  .names .and { font-family: "Pinyon Script"; text-transform: none; font-size: .62em; line-height: .9; color: var(--gold-soft); }
-  .invite { margin: 0 0 6mm; font-size: 10pt; opacity: .9; }
-  .date { font: 400 17pt/1 "Italiana"; color: var(--gold-soft); letter-spacing: .08em; display: flex; gap: 4mm; align-items: center; margin: 0 0 3mm; }
+  .names span:last-child { text-align: right; }
+  /* & grande e trasparente dietro i nomi, come sul sito (variante F) */
+  .names .and { position: absolute; inset: 0; z-index: -1; display: grid; place-items: center; font: 400 1.7em/1 "Pinyon Script"; color: rgba(227,199,122,.28); }
+  .names { isolation: isolate; }
+  .date { font: 500 24pt/1 "Cormorant Garamond", serif; font-variant-numeric: lining-nums; color: var(--gold-soft); letter-spacing: .06em; display: flex; gap: 5mm; align-items: center; margin: 0 0 4mm; text-shadow: 0 .4mm 1.6mm rgba(0,0,0,.45); }
   .date i { width: 1.6mm; height: 1.6mm; background: var(--gold); transform: rotate(45deg); }
   .front .label { opacity: .85; }
 
   /* ---------- retro ---------- */
   .back { background: var(--ivory); color: var(--deep); }
-  .back .safe { inset: 14mm 13mm 22mm; justify-content: space-between; }
+  .back .safe { inset: 14mm 17mm 22mm; justify-content: flex-start; }
   .back .kicker { font-size: 18pt; color: #a8832a; }
-  .back h2 { font: 400 30pt/1 "Italiana"; color: var(--emerald); margin: 0 0 7mm; }
-  .tl { list-style: none; margin: 0 0 7mm; padding: 0; width: 100%; position: relative; }
-  .tl::before { content: ""; position: absolute; left: 50%; top: 2mm; bottom: 2mm; width: .25mm; background: var(--gold); }
-  .tl li { display: grid; grid-template-columns: 1fr 12mm 1fr; align-items: center; margin-bottom: 4.2mm; }
-  .tl svg { grid-column: 2; width: 10mm; height: 10mm; color: var(--gold); background: var(--ivory); border-radius: 50%; justify-self: center; position: relative; }
-  .tl .time { grid-column: 1; text-align: right; padding-right: 2mm; font: 400 15pt/1 "Italiana"; color: var(--emerald); white-space: nowrap; }
-  .tl .time small { font-size: 1em; color: #6b6150; } /* fine: stessa misura, più tenue (come sul sito) */
-  .tl .what { grid-column: 3; text-align: left; padding-left: 2mm; font: 500 6.8pt/1.3 "DM Sans"; letter-spacing: .24em; text-transform: uppercase; }
-  .venue { font: 400 13pt/1.15 "Italiana"; color: var(--emerald); margin: 0 0 1mm; }
-  .addr { margin: 0 0 6mm; font-size: 8.6pt; }
+  .back h2 { font: 400 30pt/1 "Italiana"; color: var(--emerald); margin: 0 0 5mm; }
+  /* programma (variante E): ora d'inizio grande e piena, righe sfalsate a gradino, icone Phosphor Light (MIT) */
+  .tl { list-style: none; margin: auto 0 10mm; padding: 0; width: 120mm; display: grid; gap: 2.4mm; text-align: left; }
+  /* gradino = icona + spazio (14.5 mm): l'icona delle righe pari cade sulla colonna testo delle dispari; filetti sempre a piena larghezza */
+  .tl li { display: grid; grid-template-columns: 34mm 10.5mm 1fr; gap: 4mm; align-items: center; padding-bottom: 2.4mm; border-bottom: .3mm solid rgba(201,161,59,.4); }
+  .tl li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .tl li:nth-of-type(even) { padding-left: 14.5mm; }
+  .tl .big { margin: 0; text-align: right; font: 500 30pt/1 "Cormorant Garamond", serif; color: #8a6a1f; font-variant-numeric: lining-nums tabular-nums; }
+  .tl .ico { width: 10.5mm; height: 10.5mm; border-radius: 50%; background: var(--ivory); border: .3mm solid var(--gold); color: var(--emerald); display: grid; place-items: center; }
+  .tl .ico svg { width: 5.6mm; height: 5.6mm; }
+  .tl h3 { margin: 0; font: 400 14pt/1 "Italiana"; color: var(--emerald); -webkit-text-stroke: .25px currentColor; }
+  .tl .time { margin: 1.2mm 0 .8mm; font: 500 6.8pt/1.2 "DM Sans"; letter-spacing: .14em; text-transform: uppercase; color: #6e520c; }
+  .tl .d { margin: 0; font: 400 8pt/1.35 "DM Sans"; color: #2b2620; }
+  .venue { font: 400 13pt/1.15 "Italiana"; color: var(--emerald); margin: 0 0 2.5mm; }
+  .addr { margin: 0 0 10mm; font-size: 8.6pt; }
   .rsvp { display: flex; align-items: center; gap: 5mm; text-align: left; border-top: .2mm solid rgba(15,77,58,.3); padding-top: 5mm; width: 100%; }
   .rsvp p { margin: 0; }
   .rsvp .t { font: 400 13pt/1.1 "Italiana"; color: var(--emerald); margin-bottom: 1.2mm; }
-  .rsvp .s { font-size: 8pt; }
-  .rsvp .u { font-size: 7pt; opacity: .7; margin-top: 1mm; word-break: break-all; }
+  .rsvp .s { font-size: 8.5pt; }
+  .rsvp .u { font-size: 7.5pt; color: var(--emerald); margin-top: 1mm; word-break: break-all; }
   .qr { flex: 0 0 22mm; height: 22mm; }
   .qr svg { width: 100%; height: 100%; display: block; }
   .kente { position: absolute; left: 0; right: 0; bottom: 0; height: 9mm;
@@ -71,9 +77,7 @@
 <section class="page front">
   <img src="../assets/img/hero-portrait.jpg" alt="">
   <div class="safe">
-    <p class="script kicker" data-t="kicker">Insieme alle loro famiglie</p>
     <h1 class="names"><span class="foil">George</span><span class="and">&amp;</span><span class="foil">Silvia</span></h1>
-    <p class="invite" data-t="invite">vi invitano a celebrare il loro matrimonio</p>
     <p class="date"><span>18</span><i></i><span>09</span><i></i><span>2027</span></p>
     <p class="label" data-t="when">Sabato · ore 11:00</p>
     <p class="label" style="margin-top:1.5mm">Villa Fenaroli Palace Hotel · Rezzato (BS)</p>
@@ -86,11 +90,11 @@
     <p class="script kicker" data-t="day">Il nostro giorno</p>
     <h2 data-t="program">Il programma</h2>
     <ol class="tl">
-      <li><span class="time">11:00 <small>– 13:00</small></span><svg viewBox="0 0 48 48"><use href="#i-akoma-ntoaso"/></svg><span class="what" data-t="t1">Cerimonia</span></li>
-      <li><span class="time">13:00 <small>– 14:30</small></span><svg viewBox="0 0 48 48"><use href="#i-chain"/></svg><span class="what" data-t="t2">Aperitivo</span></li>
-      <li><span class="time">14:30 <small>– 17:00</small></span><svg viewBox="0 0 48 48"><use href="#i-adinkrahene"/></svg><span class="what" data-t="t3">Pranzo</span></li>
-      <li><span class="time">17:00 <small>– 18:00</small></span><svg viewBox="0 0 48 48"><use href="#i-akoma"/></svg><span class="what" data-t="t4">Taglio della torta</span></li>
-      <li><span class="time">18:00 <small>– 23:00</small></span><svg viewBox="0 0 48 48"><use href="#i-nsoromma"/></svg><span class="what" data-t="t5">Festa</span></li>
+      <li><p class="big">11:00</p><span class="ico"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#ph-heart"/></svg></span><div class="txt"><h3 data-t="t1">Cerimonia</h3><p class="time"><span data-t="until">fino alle</span> 13:00</p><p class="d" data-t="d1">Lo scambio delle promesse</p></div></li>
+      <li><p class="big">13:00</p><span class="ico"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#ph-champagne"/></svg></span><div class="txt"><h3 data-t="t2">Aperitivo</h3><p class="time"><span data-t="until">fino alle</span> 14:30</p><p class="d" data-t="d2">Un brindisi tutti insieme</p></div></li>
+      <li><p class="big">14:30</p><span class="ico"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#ph-fork-knife"/></svg></span><div class="txt"><h3 data-t="t3">Pranzo</h3><p class="time"><span data-t="until">fino alle</span> 17:00</p><p class="d" data-t="d3">A tavola con chi amiamo</p></div></li>
+      <li><p class="big">17:00</p><span class="ico"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#ph-cake"/></svg></span><div class="txt"><h3 data-t="t4">Taglio della torta</h3><p class="time"><span data-t="until">fino alle</span> 18:00</p><p class="d" data-t="d4">Il momento più dolce</p></div></li>
+      <li><p class="big">18:00</p><span class="ico"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#ph-music-notes"/></svg></span><div class="txt"><h3 data-t="t5">Festa</h3><p class="time"><span data-t="until">fino alle</span> 23:00</p><p class="d" data-t="d5">Si balla fino a tarda sera</p></div></li>
     </ol>
     <p class="venue">Villa Fenaroli Palace Hotel</p>
     <p class="addr">Via Giuseppe Mazzini, 14 · 25086 Rezzato (BS)</p>
@@ -108,33 +112,20 @@
 
 <svg width="0" height="0" style="position:absolute">
   <defs>
-    <g id="i-akoma-ntoaso" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
-      <path d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
-      <path transform="rotate(90 24 24)" d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
-      <path transform="rotate(180 24 24)" d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
-      <path transform="rotate(270 24 24)" d="M24 15c0-4-6-5-6-1 0 3 6 7 6 7s6-4 6-7c0-4-6-3-6 1z"/>
-      <circle cx="24" cy="24" r="3"/><circle cx="24" cy="24" r="21"/>
-    </g>
-    <g id="i-chain" fill="none" stroke="currentColor" stroke-width="1.6">
-      <path d="M6 24a10 6.5 0 1 0 20 0a10 6.5 0 1 0-20 0"/><path d="M22 24a10 6.5 0 1 0 20 0a10 6.5 0 1 0-20 0"/><circle cx="24" cy="24" r="21"/>
-    </g>
-    <g id="i-adinkrahene" fill="none" stroke="currentColor" stroke-width="1.6">
-      <circle cx="24" cy="24" r="4"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="21"/>
-    </g>
-    <g id="i-akoma" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
-      <path d="M24 17c0-7-11-8-11 0 0 7 11 15 11 15s11-8 11-15c0-8-11-7-11 0z"/><path d="M24 22v6"/><circle cx="24" cy="24" r="21"/>
-    </g>
-    <g id="i-nsoromma" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
-      <path d="M24 6l3.06 10.61L36.73 11.27l-5.34 9.67L42 24l-10.61 3.06 5.34 9.67-9.67-5.34L24 42l-3.06-10.61-9.67 5.34 5.34-9.67L6 24l10.61-3.06-5.34-9.67 9.67 5.34z"/><circle cx="24" cy="24" r="3"/>
-    </g>
+    <symbol id="ph-heart" viewBox="0 0 256 256"><g fill="currentColor"><path d="M178,42c-21,0-39.26,9.47-50,25.34C117.26,51.47,99,42,78,42a60.07,60.07,0,0,0-60,60c0,29.2,18.2,59.59,54.1,90.31a334.68,334.68,0,0,0,53.06,37,6,6,0,0,0,5.68,0,334.68,334.68,0,0,0,53.06-37C219.8,161.59,238,131.2,238,102A60.07,60.07,0,0,0,178,42ZM128,217.11C111.59,207.64,30,157.72,30,102A48.05,48.05,0,0,1,78,54c20.28,0,37.31,10.83,44.45,28.27a6,6,0,0,0,11.1,0C140.69,64.83,157.72,54,178,54a48.05,48.05,0,0,1,48,48C226,157.72,144.41,207.64,128,217.11Z"/></g></symbol>
+    <symbol id="ph-champagne" viewBox="0 0 256 256"><g fill="currentColor"><path d="M142.26,10H97.65A6,6,0,0,0,92,14.14c-1.47,4.51-35.53,110.73-5.85,151.57,6.75,9.28,16.1,14.62,27.86,15.95V234H96a6,6,0,1,0,0,12h48a6,6,0,1,0,0-12H126V181.66c11.76-1.33,21.11-6.67,27.85-15.95,29.68-40.84-4.37-147.06-5.84-151.57A6,6,0,0,0,142.26,10ZM102.08,22h35.75c2.24,7.48,7,24.29,10.75,44H91.34C95.09,46.29,99.85,29.48,102.08,22Zm42,136.66C138.55,166.29,130.66,170,120,170s-18.6-3.71-24.14-11.34C85.46,144.42,83.21,116.55,89.25,78h61.42C156.71,116.55,154.45,144.42,144.1,158.66ZM230,52a10,10,0,1,1-10-10A10,10,0,0,1,230,52ZM206,20a10,10,0,1,1-10-10A10,10,0,0,1,206,20Zm0,80a10,10,0,1,1-10-10A10,10,0,0,1,206,100Z"/></g></symbol>
+    <symbol id="ph-fork-knife" viewBox="0 0 256 256"><g fill="currentColor"><path d="M74,88V40a6,6,0,0,1,12,0V88a6,6,0,0,1-12,0ZM214,40V224a6,6,0,0,1-12,0V174H152a6,6,0,0,1-6-6c0-4.41.68-108.25,59.64-133.51A6,6,0,0,1,214,40ZM202,50c-36.79,24.29-42.82,91.48-43.81,112H202ZM117.92,39a6,6,0,1,0-11.84,2L114,88.48a34,34,0,0,1-68,0L53.92,41a6,6,0,0,0-11.84-2l-8,48A6.61,6.61,0,0,0,34,88a46.06,46.06,0,0,0,40,45.6V224a6,6,0,0,0,12,0V133.6A46.06,46.06,0,0,0,126,88a6.61,6.61,0,0,0-.08-1Z"/></g></symbol>
+    <symbol id="ph-cake" viewBox="0 0 256 256"><g fill="currentColor"><path d="M230,112a22,22,0,0,0-22-22H134V77.4A30.05,30.05,0,0,0,158,48c0-26.9-25.58-44.27-26.67-45a6,6,0,0,0-6.66,0C123.58,3.73,98,21.1,98,48a30.05,30.05,0,0,0,24,29.4V90H48a22,22,0,0,0-22,22v23.33a38.81,38.81,0,0,0,8,23.57V200a22,22,0,0,0,22,22H200a22,22,0,0,0,22-22V158.9a38.81,38.81,0,0,0,8-23.57ZM110,48c0-15.4,12-27.41,18-32.44,6,5,18,17,18,32.44a18,18,0,0,1-36,0ZM38,112a10,10,0,0,1,10-10H208a10,10,0,0,1,10,10v23.33c0,14.32-11.33,26.28-25.26,26.66A26,26,0,0,1,166,136a6,6,0,0,0-12,0,26,26,0,0,1-52,0,6,6,0,0,0-12,0,26,26,0,0,1-26.74,26C49.33,161.61,38,149.65,38,135.33Zm162,98H56a10,10,0,0,1-10-10V169.31A36.8,36.8,0,0,0,62.94,174,37.82,37.82,0,0,0,90.5,163.24,38.83,38.83,0,0,0,96,156.5a38,38,0,0,0,64,0,38.83,38.83,0,0,0,5.52,6.74A37.73,37.73,0,0,0,192,174h1.07A36.8,36.8,0,0,0,210,169.31V200A10,10,0,0,1,200,210Z"/></g></symbol>
+    <symbol id="ph-music-notes" viewBox="0 0 256 256"><g fill="currentColor"><path d="M211.69,19.27a6,6,0,0,0-5.15-1.09l-128,32A6,6,0,0,0,74,56V170.11A34,34,0,1,0,86,196V108.68l116-29v58.43A34,34,0,1,0,214,164V24A6,6,0,0,0,211.69,19.27ZM52,218a22,22,0,1,1,22-22A22,22,0,0,1,52,218ZM86,96.32V60.68l116-29V67.32ZM180,186a22,22,0,1,1,22-22A22,22,0,0,1,180,186Z"/></g></symbol>
   </defs>
 </svg>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 <script>
   const EN = {
-    kicker: "Together with their families", invite: "invite you to celebrate their wedding", when: "Saturday · 11:00 am",
-    day: "Our day", program: "The schedule", t1: "Ceremony", t2: "Aperitivo", t3: "Wedding lunch", t4: "Cake cutting", t5: "Party",
+    when: "Saturday · 11:00 am",
+    day: "Our day", program: "The schedule", until: "until", t1: "Ceremony", t2: "Aperitivo", t3: "Wedding lunch", t4: "Cake cutting", t5: "Party",
+    d1: "Exchanging our vows", d2: "A toast all together", d3: "At the table with those we love", d4: "The sweetest moment", d5: "Dancing into the night",
     rsvp: "Kindly reply", rsvp2: "Scan the code by 30 June 2027 to find the schedule, the map and the reply form.",
   };
   if (new URLSearchParams(location.search).get("lang") === "en") {
@@ -145,7 +136,7 @@
   const qr = qrcode(0, "M");
   qr.addData("https://samuelgarbarino.github.io/wedding-sites-maker/george-silvia/");
   qr.make();
-  document.getElementById("qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }).replace(/fill="black"/g, 'fill="#0F4D3A"').replace(/<rect[^>]*fill="white"[^>]*\/>/, "");
+  document.getElementById("qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }).replace(/fill="black"/g, 'fill="#0b2e23"').replace(/<rect[^>]*fill="white"[^>]*\/>/, "");
 </script>
 </body>
 </html>
