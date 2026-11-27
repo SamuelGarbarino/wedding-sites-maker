@@ -264,27 +264,7 @@ function confetti() {
   })(t0);
 }
 
-/* ---------- intro: tessitura kente ---------- */
-function weaveSVG() {
-  // strisce kente: blocchi pieni alternati a blocchi rigati, sfalsati a scacchiera
-  const rows = 16, cols = 10, h = 1000 / rows, w = 1000 / cols;
-  const solid = ["#0F4D3A", "#8C1C24", "#14110D", "#0F4D3A"];
-  const lines = ["#0F4D3A", "#8C1C24", "#14110D"];
-  let blocks = "", warp = "";
-  for (let i = 0; i < rows; i++)
-    for (let j = 0; j < cols; j++) {
-      const x = j * w, y = i * h;
-      let g = `<rect x="${x}" y="${y}" width="${w + 0.5}" height="${h + 0.5}" fill="${(i + j) % 2 ? solid[(i + (j >> 1)) % 4] : "#C9A13B"}"/>`;
-      if ((i + j) % 2 === 0)
-        lines.forEach((c, k) => (g += `<rect x="${x}" y="${y + h * (0.22 + k * 0.24)}" width="${w + 0.5}" height="${h * 0.08}" fill="${c}"/>`));
-      blocks += `<g class="wf" data-i="${i}" data-j="${j}">${g}</g>`;
-    }
-  for (let k = 1; k < 80; k++)
-    warp += `<line class="wp" pathLength="1" x1="${k * 12.5}" y1="0" x2="${k * 12.5}" y2="1000" vector-effect="non-scaling-stroke"/>`;
-  return `<svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">${blocks}
-    <g stroke="rgba(20,17,13,.28)" stroke-width="1" stroke-dasharray="1" stroke-dashoffset="1">${warp}</g></svg>`;
-}
-
+/* ---------- intro: busta che si apre ---------- */
 const intro = $("#intro");
 const endIntro = () => {
   intro?.remove();
@@ -309,29 +289,26 @@ if (!hasGsap || reduce) {
     gsap.ticker.lagSmoothing(0);
   }
 
-  const panels = $$(".intro__panel");
-  panels.forEach((p) => (p.innerHTML = weaveSVG()));
-  const heroBits = [".hero__kicker", ".names__line", ".names__and", ".hero__invite", ".hero__date", ".hero__place", ".nav"];
+  const heroBits = [".hero__lead", ".hero__kicker", ".names__line", ".names__and", ".hero__rings", ".hero__date", ".hero__place", ".nav"];
   gsap.set(heroBits, { opacity: 0 });
 
+  // busta chiusa -> sigillo Gye Nyame -> versetto -> il sigillo si stacca, il lembo si apre -> la busta si divide sull'hero
   const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-  tl.to($$(".wp", intro), { strokeDashoffset: 0, autoRound: false, duration: 0.9, stagger: { each: 0.005, from: "center" } })
-    .from($$(".wf", intro), {
-      scaleX: 0,
-      transformOrigin: (k, el) => (el.dataset.i % 2 ? "100% 50%" : "0% 50%"),
-      duration: 0.55,
-      ease: "power3.out",
-      stagger: (k, el) => {
-        const i = +el.dataset.i, j = +el.dataset.j;
-        return i * 0.055 + (i % 2 ? 9 - j : j) * 0.022;
-      },
-    }, 0.15)
-    .fromTo(".intro__medal", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.9 }, "-=0.5")
-    .to($$(".intro__medal [pathLength]"), { strokeDashoffset: 0, autoRound: false, duration: 1.1, stagger: 0.07, ease: "power2.inOut" }, "<0.1")
-    .fromTo(".intro__lead", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9 }, "-=0.4")
-    .addLabel("open", "+=0.9")
-    .to([".intro__medal", ".intro__lead"], { scale: 1.5, opacity: 0, duration: 0.8, ease: "power2.in" }, "open")
-    .to(".intro__panel--top", { yPercent: -52, duration: 1.4, ease: "expo.inOut" }, "open+=0.35")
+  tl.from(".intro__panel, .env__flap", { opacity: 0, duration: 0.8, ease: "power1.out" })
+    .from(".env__flap", { scaleY: 0.92, duration: 1 }, "<")
+    .fromTo(".env__seal", { opacity: 0, scale: 1.8, rotate: -20 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.9, ease: "back.out(1.6)" }, "-=0.4")
+    .fromTo(".env__seal", { "--fx": "100%" }, { "--fx": "0%", duration: 1.4, ease: "power2.inOut" }, "<")
+    .from(".env__verse p, .env__verse cite", { opacity: 0, y: 16, filter: "blur(6px)", duration: 1.2, stagger: 0.25 }, "-=0.6")
+    // la busta resta chiusa finché l'ospite non la tocca
+    .addPause("+=0.1", () => { if (skipped) return tl.play(); $(".env__hint").classList.add("is-on"); $(".env__seal").focus({ preventScroll: true }); })
+    .addLabel("open")
+    .to(".env__hint", { opacity: 0, duration: 0.3 }, "open")
+    .to(".env__glow", { scale: 1.8, opacity: 1, duration: 1.2, ease: "power2.out" }, "open+=0.2")
+    .to(".env__glow", { opacity: 0, duration: 0.8 }, "open+=1.4")
+    .to(".env__seal", { scale: 1.25, opacity: 0, duration: 0.5, ease: "power2.in" }, "open")
+    .to(".env__flap", { rotateX: 180, duration: 1.1, ease: "power2.inOut" }, "open+=0.2")
+    .to(".env__flap", { opacity: 0, duration: 0.3 }, "open+=0.85")
+    .to(".intro__panel--top", { yPercent: -52, duration: 1.4, ease: "expo.inOut" }, "open+=0.9")
     .to(".intro__panel--bottom", { yPercent: 52, duration: 1.4, ease: "expo.inOut" }, "<")
     .fromTo(".hero__media img", { scale: 1.25 }, { scale: 1, duration: 2.4, ease: "expo.out" }, "<")
     .add(heroIn, "<0.6")
@@ -342,18 +319,25 @@ if (!hasGsap || reduce) {
       if (target) lenis ? lenis.scrollTo(target, { offset: -60 }) : target.scrollIntoView();
     });
 
-  $(".intro__skip").addEventListener("click", () => tl.timeScale(6));
+  intro.style.animation = "none"; // il JS gira: niente failsafe a tempo, si aspetta il click
+  const open = () => { $(".env__hint").classList.remove("is-on"); $(".env__glow").style.animation = "none"; tl.play(); };
+  intro.addEventListener("click", (e) => { if (!e.target.closest(".intro__skip") && tl.paused()) open(); });
+  let skipped = false;
+  $(".intro__skip").addEventListener("click", () => { skipped = true; tl.timeScale(6); open(); });
   // fail-safe: mai bloccati dietro l'intro
-  setTimeout(() => { if (intro.isConnected) { tl.progress(1); endIntro(); gsap.set(heroBits, { opacity: 1 }); } }, 9000);
 
   function heroIn() {
     gsap.timeline({ defaults: { ease: "expo.out", duration: 1.4 } })
+      .fromTo(".hero__lead", { opacity: 0, y: 16 }, { opacity: 1, y: 0 })
       .fromTo(".hero__kicker", { opacity: 0, y: 24, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)" })
       .fromTo(".names__line", { opacity: 0, yPercent: 30, letterSpacing: "0.2em", filter: "blur(14px)" },
         { opacity: 1, yPercent: 0, letterSpacing: "0em", filter: "blur(0px)", duration: 1.8, stagger: 0.18 }, "<0.15")
       .fromTo(".names__and", { opacity: 0, scale: 0.6, rotate: -12 }, { opacity: 1, scale: 1, rotate: 0 }, "<0.4")
       .fromTo(".names", { "--fx": "100%" }, { "--fx": "30%", duration: 2.4, ease: "power2.inOut" }, "<")
-      .fromTo([".hero__invite", ".hero__date", ".hero__place"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.12 }, "<0.5")
+      .set(".hero__rings", { opacity: 1 }, "<0.4")
+      .fromTo(".hero__rings [pathLength]", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1.6, stagger: 0.2, ease: "power2.inOut" }, "<")
+      .from(".hero__gem", { scale: 0, transformOrigin: "50% 50%", duration: 0.8, ease: "back.out(3)" }, ">-0.3")
+      .fromTo([".hero__date", ".hero__place"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.12 }, "<-0.6")
       .fromTo(".nav", { opacity: 0, y: -20 }, { opacity: 1, y: 0 }, "<0.2");
   }
 
@@ -438,7 +422,7 @@ void main(){
     });
 
     // reveal generici
-    ScrollTrigger.batch(".section .kicker, .rsvp__note, .venue__addr, .cd__unit, .cal, .venue__map, .section > .btn-row, .card, .footer > *", {
+    ScrollTrigger.batch(".section .kicker, .rsvp__note, .dress__list li, .dress__note, .venue__addr, .cd__unit, .cal, .venue__map, .section > .btn-row, .card, .footer > *", {
       start: "top 90%",
       once: true,
       onEnter: (els) => gsap.fromTo(els, { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "expo.out", overwrite: true }),

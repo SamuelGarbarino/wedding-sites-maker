@@ -75,26 +75,47 @@ body::after {
 .intro { display: none; }
 .js .intro {
   display: block; position: fixed; inset: 0; z-index: 100;
-  animation: intro-failsafe 0s 10s forwards; /* se il JS si rompe, l'intro sparisce comunque */
+  animation: intro-failsafe 0s 13s forwards; /* se il JS si rompe, l'intro sparisce comunque */
 }
 @keyframes intro-failsafe { to { visibility: hidden; } }
-.intro__panel { position: absolute; inset: 0; background: var(--emerald-deep); overflow: hidden; }
+.intro { perspective: 1400px; }
+.intro__panel { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 50% 40%, #11503d, var(--emerald-deep) 75%); }
 .intro__panel--top { clip-path: inset(0 0 50% 0); }
 .intro__panel--bottom { clip-path: inset(50% 0 0 0); }
-.intro__panel svg { width: 100%; height: 100%; display: block; }
-.intro__medal {
-  position: absolute; inset: 0; margin: auto; width: min(46vw, 220px); height: min(46vw, 220px); border-radius: 50%;
-  background: radial-gradient(circle, #0d3a2c 55%, #0a2a20 100%);
-  box-shadow: 0 0 0 1px rgba(201,161,59,.5), 0 30px 80px rgba(0,0,0,.55);
-  display: grid; place-items: center; color: var(--gold); opacity: 0;
+.env__back { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* la busta: lembo che si apre verso l'alto, sigillo Gye Nyame sulla punta, versetto sotto */
+.env__flap { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 50% 0; filter: drop-shadow(0 0 10px rgba(246,227,161,.45)) drop-shadow(0 18px 24px rgba(0,0,0,.35)); }
+.env__glow {
+  position: absolute; left: 50%; top: 52%; width: min(140vw, 1400px); aspect-ratio: 2 / 1; translate: -50% -50%; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,210,110,.6), rgba(201,161,59,.22) 35%, transparent 65%); mix-blend-mode: screen;
+  animation: env-glow 3.2s ease-in-out infinite alternate;
 }
-.intro__medal svg { width: 62%; grid-area: 1/1; }
-.intro__mono { grid-area: 1/1; align-self: end; margin-bottom: 9%; font: 400 15px/1 var(--display); letter-spacing: .3em; }
-.intro__lead {
-  position: absolute; left: 0; right: 0; top: calc(50% + min(23vw, 110px) + 28px); margin: 0; padding: 0 var(--gutter);
-  text-align: center; text-wrap: balance; font: 500 clamp(12px, 1.2vw, 15px)/1.6 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--ivory); opacity: 0;
+@keyframes env-glow { from { opacity: .55; scale: .94; } to { opacity: 1; scale: 1.04; } }
+.env__hint { display: block; margin-top: 28px; font: 500 11px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: var(--ivory); opacity: 0; }
+.env__hint.is-on { animation: env-hint 1.8s ease-in-out infinite alternate; }
+@keyframes env-hint { from { opacity: .35; } to { opacity: .9; } }
+.env__seal {
+  border: 0; padding: 0; cursor: pointer; transition: filter .4s var(--ease);
+  --s: min(30vw, 150px);
+  position: absolute; left: 50%; top: 56%; width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  display: grid; place-items: center; border-radius: 47% 53% 50% 50% / 52% 48% 52% 48%;
+  background: var(--foil); color: #6e520c;
+  box-shadow: inset 0 0 0 calc(var(--s) * .06) rgba(160,124,42,.55), inset 0 -6px 14px rgba(110,82,12,.45), 0 12px 30px rgba(0,0,0,.45);
 }
-.intro__lead span { display: inline-block; padding: 12px 22px; border-radius: 99px; background: rgba(11,31,24,.88); box-shadow: 0 0 0 1px rgba(201,161,59,.45); }
+.env__seal:hover { filter: brightness(1.12); }
+.env__seal:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 8px; }
+.env__seal svg { width: 58%; filter: drop-shadow(0 1px 0 rgba(246,227,161,.8)); }
+.env__verse {
+  position: absolute; left: 0; right: 0; top: calc(56% + min(15vw, 75px) + clamp(20px, 3vh, 36px)); margin: 0 auto; padding: 0 var(--gutter);
+  max-width: 34em; text-align: center; color: var(--ivory);
+}
+.env__verse p { margin: 0; font: italic 500 clamp(19px, 2.1vw, 28px)/1.4 "Cormorant Garamond", var(--display); text-wrap: balance; }
+.env__verse cite { display: block; margin-top: 14px; font: 500 12px/1 var(--sans); font-style: normal; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-soft); }
+@media (max-width: 767px) and (orientation: portrait) {
+  .env__seal { top: 46%; }
+  .env__glow { top: 44%; aspect-ratio: 1; }
+  .env__verse { top: calc(46% + min(15vw, 75px) + 28px); }
+}
 .intro__skip {
   position: absolute; right: var(--gutter); bottom: max(28px, env(safe-area-inset-bottom)); z-index: 2;
   background: none; border: 1px solid rgba(244,237,224,.3); border-radius: 99px; padding: 15px 24px;
@@ -120,13 +141,14 @@ body::after {
   text-shadow: 0 2px 18px rgba(0,0,0,.42);
 }
 .hero__veil { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; }
-.hero__kicker { font-size: clamp(40px, 4.4vw, 64px); line-height: 1; color: var(--gold-soft); }
+.hero__lead { margin: 0 0 6px; font: 500 clamp(12px, 1.1vw, 14px)/1.6 var(--sans); letter-spacing: .28em; text-transform: uppercase; text-wrap: balance; }
+.hero__kicker { font-size: clamp(30px, 3vw, 44px); line-height: 1.1; color: var(--gold-soft); }
+.hero__rings { display: block; width: clamp(72px, 7vw, 104px); margin: 0 auto 18px; overflow: visible; filter: drop-shadow(0 6px 14px rgba(0,0,0,.4)); }
 .names { position: relative; width: min(100%, 4.6em); margin: .1em auto .2em; font: italic 500 clamp(64px, 8.7vw, 148px)/.92 "Cormorant Garamond", var(--display); text-align: left; }
 .names__line { display: block; text-shadow: none; filter: drop-shadow(0 16px 38px rgba(0,0,0,.35)); }
 .names__line + .names__and + .names__line { text-align: right; }
 /* & grande e trasparente dietro i nomi (variante F) */
 .names__and { position: absolute; inset: 0; z-index: -1; display: grid; place-items: center; font-size: 1.7em; line-height: 1; color: rgba(227,199,122,.28); pointer-events: none; }
-.hero__invite { margin: 0 auto 1.6em; max-width: 34ch; text-wrap: balance; font-size: clamp(15px, 1.3vw, 18px); opacity: .85; }
 .hero__date { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 0 0 14px; font: 400 clamp(26px, 2.6vw, 36px)/1 var(--display); color: var(--gold-soft); letter-spacing: .08em; }
 .hero__date i { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
 .hero__place { opacity: .9; }
@@ -248,6 +270,24 @@ body::after {
 @keyframes pulse { from { transform: scale(.4); opacity: 1; } to { transform: scale(2.4); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .map__pulse { animation: none; opacity: .6; } }
 @media (max-width: 640px) { .venue__map { aspect-ratio: 1; } }
+
+/* ---------- dress code ---------- */
+.dress__list { list-style: none; margin: clamp(48px, 7vw, 80px) auto 0; padding: 0; max-width: 860px; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 4vw, 56px); }
+.dress__list li { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+/* campioni di tessuto */
+.dress__swatch { width: clamp(96px, 13vw, 150px); aspect-ratio: 1; border-radius: 50%; box-shadow: 0 0 0 6px var(--ivory), 0 0 0 7px rgba(201,161,59,.6), 0 18px 40px rgba(11,46,35,.2); }
+.dress__swatch--kente { background:
+  repeating-linear-gradient(0deg, rgba(0,0,0,.16) 0 1px, transparent 1px 3px),
+  repeating-linear-gradient(90deg, var(--gold) 0 18px, var(--ink) 18px 21px, var(--emerald) 21px 34px, var(--gold) 34px 37px, var(--crimson) 37px 46px),
+  var(--gold); background-blend-mode: multiply, normal; }
+.dress__swatch--trad { background:
+  radial-gradient(circle, var(--gold) 2.5px, transparent 3px) 0 0 / 18px 18px,
+  radial-gradient(circle, rgba(244,237,224,.5) 1.5px, transparent 2px) 9px 9px / 18px 18px,
+  var(--crimson); }
+.dress__swatch--elegant { background: linear-gradient(135deg, #1a6a51 0%, var(--emerald) 35%, var(--emerald-deep) 70%, #145a45 100%); }
+.dress__name { font: 400 clamp(26px, 3vw, 38px)/1.1 var(--display); color: var(--emerald); -webkit-text-stroke: .4px currentColor; text-wrap: balance; }
+.dress__note { max-width: 40ch; margin: clamp(40px, 5vw, 64px) auto 0; font-size: 18px; color: #2b2620; text-wrap: balance; }
+@media (max-width: 560px) { .dress__list { gap: 10px; } .dress__swatch { width: 84px; } .dress__name { font-size: 21px; } }
 
 /* ---------- RSVP ---------- */
 .rsvp__note { margin: 20px auto 0; max-width: 40ch; opacity: .8; }
