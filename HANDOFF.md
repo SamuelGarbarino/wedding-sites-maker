@@ -92,7 +92,7 @@ Nota: se modifichi `Code.gs` dopo il deploy, serve **Gestisci deployment → Mod
 
 ### 3. Invito cartaceo
 - Rigenerare i PDF dopo modifiche: servire la cartella (`python -m http.server 5173` dalla root) e lanciare l'export Playwright (vedi sezione Comandi).
-- Per la tipografia: formato finito A5 148×210 mm, PDF a 2 pagine con 3 mm di abbondanza (154×216 mm), stampa senza lamina (oro come colore). Export: `python -I export.py <cartella invito>` con Playwright/Chrome, `prefer_css_page_size=True`.
+- Per la tipografia: formato finito A5 148×210 mm, PDF a 2 pagine con 3 mm di abbondanza (154×216 mm), stampa senza lamina (oro come colore). Export con lo script Playwright descritto in "Comandi".
 
 ## Comandi
 ```powershell
