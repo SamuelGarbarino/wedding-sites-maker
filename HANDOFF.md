@@ -3,8 +3,8 @@
 Ultimo aggiornamento: 27/11/2026 (feedback sposi)
 
 ## Riparti da qui
-Stato (27/11/2026, feedback degli sposi applicato): sito online, ultimo commit `4c58b2d`. RSVP non ancora attivo (manca il deploy di Apps Script). Pagamento concordato in due rate; preventivo da firmare pronto in `preventivo/` (NON committare: repo pubblico, contiene dati del cliente).
-Prossimo passo: mandare a George il messaggio per chiedere se va bene il preventivo da firmare, poi inviare il PDF (compilare a mano codice fiscale, indirizzo e cognomi). Sul sito: prova su telefono vero (busta, hero con frase lunga), aggiornare `og.jpg` col nuovo kente, deploy Apps Script.
+Stato (27/11/2026, feedback degli sposi applicato): sito online, ultimo commit `4c58b2d`. RSVP non ancora attivo (manca il deploy di Apps Script). Accordi con il cliente: nel vault Obsidian, non qui (repo pubblico). La cartella `preventivo/` non va mai committata.
+Prossimo passo sul sito: prova su telefono vero (busta, hero con frase lunga), aggiornare `og.jpg` col nuovo kente, deploy Apps Script.
 
 **Fatto il 27/11 (feedback degli sposi, commit `4161961`, `8658cc8`, `2ce1651`, `4c58b2d`):**
 - **Intro = busta interattiva.** Busta smeraldo a schermo intero, lembo SVG che si apre (`rotateX`), sigillo oro con il Gye Nyame al centro (SVG CC0 di kasahorow/Openclipart da Wikimedia), sotto il versetto «Così non sono più due, ma una sola carne; quello dunque che Dio ha unito, l'uomo non lo separi.» Matteo 19:6 (EN in traduzione corrente). La timeline GSAP si ferma con `addPause` finché l'ospite non tocca la busta (hint "Tocca la busta per aprirla" che pulsa, sigillo è un `<button>` con focus). "Salta" apre subito. Il failsafe CSS a tempo viene annullato dal JS (`intro.style.animation = "none"`), resta solo se il JS non parte.
@@ -12,7 +12,6 @@ Prossimo passo: mandare a George il messaggio per chiedere se va bene il prevent
 - **Hero:** "Insieme alla nostra famiglia, abbiamo l'onore di invitarvi al" / "Together with our family, we humbly request the honour of your presence at the", poi "MATRIMONIO TRADIZIONALE PRIVATO" / "PRIVATE TRADITIONAL WEDDING" in oro, "di"/"of" in corsivo, nomi, due fedi intrecciate SVG che si disegnano. Tolti Akwaaba e "Insieme alle loro famiglie vi invitano". Nuovo kente (drappo intero, lato scuro a destra / sopra su mobile): `hero-kente2.webp|jpg`, `hero-kente2-portrait.webp` (originali in `Documents/Media Gen/2026-11-27-hero-kente-2-*`).
 - **Dress code:** sezione nuova tra Luogo e RSVP, tre campioni di stoffa in CSS (Kente, Abito tradizionale, Elegante) e una frase.
 - **Timeline:** gli sposi hanno scelto lo stile C "illustrazione di moda" su 3 proposte (artefatto https://claude.ai/artifact/RoyLfbR1t4YGPh43tg2ro7). Tutte e 5 rifatte con `media-gen` (nano-banana-pro-edit, con la vecchia scena e la cerimonia C come riferimenti), `tl-1..5.webp` a 720 px.
-- **Cliente:** 200 € in due rate (100 entro 31/12/2026, 100 entro 18/06/2027), preventivo A4 `preventivo/preventivo-george-silvia.pdf` (150 sito + 50 assistenza, esclusi nuove sezioni e cambi grafici, prestazione occasionale).
 - Non fatto: `og.jpg` mostra ancora il kente vecchio; `hero.webp`/`hero-portrait.webp` vecchi ancora nella cartella; modifiche all'invito (`invito.html`, PDF, `qr.svg`) in sospeso da prima, non committate.
 
 **Prima (27/11, sera):** sito con la dissolvenza WebGL nell'hero e le correzioni della revisione UX/UI; invito PDF IT/EN pronto.
