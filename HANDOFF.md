@@ -1,6 +1,6 @@
 # HANDOFF — Wedding Sites Maker · George & Silvia
 
-Ultimo aggiornamento: 26/11/2026 (sera)
+Ultimo aggiornamento: 27/11/2026 (sera)
 
 ## Riparti da qui
 Stato (27/11/2026): sito online con la dissolvenza WebGL nell'hero (il bordo segue lo scroll e resta visibile, avorio al massimo ~1/3 di schermo) e le correzioni della revisione UX/UI; invito PDF IT/EN pronto; RSVP non ancora attivo (manca il deploy di Apps Script da parte di Samuel).
@@ -19,7 +19,15 @@ Stato (27/11/2026): sito online con la dissolvenza WebGL nell'hero (il bordo seg
 - Scartato "Sei stato invitato/a": la barra pesa e sembra un modulo; il plurale "vi" copre tutti.
 - File: `index.html` (hero), `i18n.js` (hero.kicker, hero.lead nuova, hero.invite), `style.css` (`.hero__lead` con filetti), `main.js` (aggiungere `.hero__lead` all'animazione d'ingresso). Verificato a 1366 e 375 px: tutto nel primo schermo; su mobile i filetti si nascondono e l'etichetta va su due righe bilanciate.
 
-Prossimo passo: provare il nastro e le illustrazioni su un telefono vero (finora solo browser desktop e simulazione 375 px). Poi: deploy Apps Script e test di una RSVP reale; confermare scadenza e testi con gli sposi.
+**Fatto il 27/11 (sera, commit `0f69697` e `e0fdebb`):**
+- Logo "G & S" nella nav più marcato (28 px, `-webkit-text-stroke`, altezza 44 px).
+- Programma: in ogni card prima il nome del momento (Italiana grande, smeraldo, h3), poi l'orario in DM Sans 500 con inizio e fine della stessa misura (la fine più leggera e più tenue, contrasto AA 4.65:1), poi la descrizione.
+- Nomi dell'hero: variante F scelta da Samuel tra 7 proposte (artefatto https://claude.ai/artifact/1gyMcFFzqtWuPbxJk5XHM8): Cormorant Garamond corsivo 500 in lamina, George a sinistra e Silvia a destra, & grande trasparente dietro. Larghezza `.names` limitata a 4.6em, altrimenti a schermi medi i nomi finiscono ai due bordi.
+- "Benvenuti al matrimonio tradizionale di" spostato dall'hero alla fine dell'intro (`.intro__lead`, sotto il medaglione, su fondo smeraldo). Nell'hero restano Akwaaba, nomi, invito, data, luogo. Con `prefers-reduced-motion` l'intro non c'è e la frase non si vede.
+- Sezione Dove: niente più iframe Google Maps. Mappa SVG illustrata ricalcata da OpenStreetMap (villa a 45.51508, 10.31151): via Mazzini/SS45bis, parco della villa, ferrovia, tangenziale sud, A4, colli (Colle San Pietro, Monte Regogna), Rezzato, Brescia, Botticino, bussola. Animazione GSAP: zone, strade, percorso oro, spillo che cade. Su mobile la mappa è quadrata (le etichette stanno tra x 175 e 625 del viewBox).
+- Critica dell'hero con 3 agenti EGM (zoom-out, comprehension, inventive-catalyst). Consigli NON ancora applicati: togliere "Insieme alle loro famiglie vi invitano a festeggiare", data e luogo su una riga con il mese in lettere, & più visibile, logo G&S quasi invisibile su desktop sopra l'hero (da capire), "Conferma presenza" su due righe nella nav mobile.
+
+Prossimo passo: decidere con Samuel quali consigli degli agenti applicare all'hero; poi prova su un telefono vero (nastro, illustrazioni, mappa) (finora solo browser desktop e simulazione 375 px). Poi: deploy Apps Script e test di una RSVP reale; confermare scadenza e testi con gli sposi.
 
 ## Il matrimonio
 - **Sposi:** George & Silvia — matrimonio tradizionale ganese
