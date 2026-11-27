@@ -14,6 +14,11 @@ Stato (27/11/2026): sito online con la dissolvenza WebGL nell'hero (il bordo seg
 - Icone Phosphor Light (MIT) inline nello sprite SVG: Sì/No, aggiungi/rimuovi accompagnatore, invia, calendario, indicazioni, copia.
 - "RSVP" nel menu sostituito da "Conferma presenza" / "Reply".
 
+**Fatto (27/11), non ancora committato: titolo dell'hero sul modello "Welcome to our traditional marriage" (riferimento TikTok Veloradesignsuk), ma con i nomi molto più grandi.** Piano:
+- Gerarchia: 1) "Akwaaba" in corsivo oro ("benvenuti" in twi, stessa parola in IT/EN, `lang="ak"`); 2) etichetta maiuscola tra due filetti oro "Benvenuti al matrimonio tradizionale di" / "Welcome to the traditional wedding of", che fa anche da traduzione di Akwaaba; 3) nomi H1 come ora (restano l'elemento dominante); 4) "Insieme alle loro famiglie vi invitano a festeggiare" / "Together with their families, they invite you to celebrate"; 5) data e luogo come ora.
+- Scartato "Sei stato invitato/a": la barra pesa e sembra un modulo; il plurale "vi" copre tutti.
+- File: `index.html` (hero), `i18n.js` (hero.kicker, hero.lead nuova, hero.invite), `style.css` (`.hero__lead` con filetti), `main.js` (aggiungere `.hero__lead` all'animazione d'ingresso). Verificato a 1366 e 375 px: tutto nel primo schermo; su mobile i filetti si nascondono e l'etichetta va su due righe bilanciate.
+
 Prossimo passo: provare il nastro e le illustrazioni su un telefono vero (finora solo browser desktop e simulazione 375 px). Poi: deploy Apps Script e test di una RSVP reale; confermare scadenza e testi con gli sposi.
 
 ## Il matrimonio

@@ -311,7 +311,7 @@ if (!hasGsap || reduce) {
 
   const panels = $$(".intro__panel");
   panels.forEach((p) => (p.innerHTML = weaveSVG()));
-  const heroBits = [".hero__kicker", ".names__line", ".names__and", ".hero__invite", ".hero__date", ".hero__place", ".nav"];
+  const heroBits = [".hero__kicker", ".hero__lead", ".names__line", ".names__and", ".hero__invite", ".hero__date", ".hero__place", ".nav"];
   gsap.set(heroBits, { opacity: 0 });
 
   const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
@@ -348,6 +348,7 @@ if (!hasGsap || reduce) {
   function heroIn() {
     gsap.timeline({ defaults: { ease: "expo.out", duration: 1.4 } })
       .fromTo(".hero__kicker", { opacity: 0, y: 24, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)" })
+      .fromTo(".hero__lead", { opacity: 0, y: 12 }, { opacity: 1, y: 0 }, "<0.3")
       .fromTo(".names__line", { opacity: 0, yPercent: 30, letterSpacing: "0.2em", filter: "blur(14px)" },
         { opacity: 1, yPercent: 0, letterSpacing: "-0.02em", filter: "blur(0px)", duration: 1.8, stagger: 0.18 }, "<0.15")
       .fromTo(".names__and", { opacity: 0, scale: 0.6, rotate: -12 }, { opacity: 1, scale: 1, rotate: 0 }, "<0.4")
