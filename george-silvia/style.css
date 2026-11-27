@@ -90,6 +90,11 @@ body::after {
 }
 .intro__medal svg { width: 62%; grid-area: 1/1; }
 .intro__mono { grid-area: 1/1; align-self: end; margin-bottom: 9%; font: 400 15px/1 var(--display); letter-spacing: .3em; }
+.intro__lead {
+  position: absolute; left: 0; right: 0; top: calc(50% + min(23vw, 110px) + 28px); margin: 0; padding: 0 var(--gutter);
+  text-align: center; text-wrap: balance; font: 500 clamp(12px, 1.2vw, 15px)/1.6 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--ivory); opacity: 0;
+}
+.intro__lead span { display: inline-block; padding: 12px 22px; border-radius: 99px; background: rgba(11,31,24,.88); box-shadow: 0 0 0 1px rgba(201,161,59,.45); }
 .intro__skip {
   position: absolute; right: var(--gutter); bottom: max(28px, env(safe-area-inset-bottom)); z-index: 2;
   background: none; border: 1px solid rgba(244,237,224,.3); border-radius: 99px; padding: 15px 24px;
@@ -116,12 +121,11 @@ body::after {
 }
 .hero__veil { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; }
 .hero__kicker { font-size: clamp(40px, 4.4vw, 64px); line-height: 1; color: var(--gold-soft); }
-.hero__lead { display: flex; align-items: center; justify-content: center; gap: 14px; margin: .5em 0 0; }
-.hero__lead { text-wrap: balance; }
-.hero__lead::before, .hero__lead::after { content: ""; width: clamp(24px, 5vw, 64px); height: 1px; background: var(--gold); }
-.names { margin: .1em 0 .2em; font: 400 clamp(68px, 10.5vw, 176px)/.86 var(--display); letter-spacing: -.02em; text-transform: uppercase; }
+.names { position: relative; width: min(100%, 4.6em); margin: .1em auto .2em; font: italic 500 clamp(64px, 8.7vw, 148px)/.92 "Cormorant Garamond", var(--display); text-align: left; }
 .names__line { display: block; text-shadow: none; filter: drop-shadow(0 16px 38px rgba(0,0,0,.35)); }
-.names__and { display: block; color: var(--gold-soft); font-size: .72em; line-height: .8; text-transform: none; margin: -.05em 0 -.12em; }
+.names__line + .names__and + .names__line { text-align: right; }
+/* & grande e trasparente dietro i nomi (variante F) */
+.names__and { position: absolute; inset: 0; z-index: -1; display: grid; place-items: center; font-size: 1.7em; line-height: 1; color: rgba(227,199,122,.28); pointer-events: none; }
 .hero__invite { margin: 0 auto 1.6em; max-width: 34ch; text-wrap: balance; font-size: clamp(15px, 1.3vw, 18px); opacity: .85; }
 .hero__date { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 0 0 14px; font: 400 clamp(26px, 2.6vw, 36px)/1 var(--display); color: var(--gold-soft); letter-spacing: .08em; }
 .hero__date i { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
@@ -135,8 +139,6 @@ body::after {
   .hero__shade { background: linear-gradient(180deg, rgba(5,15,11,.55) 0%, rgba(5,15,11,.35) 45%, rgba(5,15,11,0) 60%, rgba(11,31,24,.85) 100%); }
   .hero__content { width: 100%; justify-self: center; align-self: start; padding-top: max(96px, 14svh); }
   .hero__scroll { display: none; }
-  .hero__lead { line-height: 1.7; }
-  .hero__lead::before, .hero__lead::after { display: none; }
 }
 
 /* ---------- kente band ---------- */
@@ -229,19 +231,23 @@ body::after {
 }
 .map { display: block; width: 100%; height: 100%; }
 .map path:not([fill]) { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.map .map__park { fill: rgba(15,77,58,.1); stroke: none; }
-.map__streets path { stroke: rgba(15,77,58,.16); stroke-width: 3; }
-.map .map__road { stroke: #fff; stroke-width: 14; }
-.map .map__a4 { stroke: #d9c48a; stroke-width: 18; }
-.map .map__route { stroke: var(--gold); stroke-width: 6; }
-.map text { font: 500 18px var(--sans); letter-spacing: .08em; fill: #3d4a44; }
-.map .map__town { font: 400 40px var(--display); letter-spacing: .02em; fill: var(--emerald); }
-.map__tag text { fill: var(--emerald); font-size: 17px; }
+.map .map__contour { stroke: #0F4D3A; stroke-opacity: .18; stroke-width: 1.5; }
+.map .map__rail { stroke: #6b6150; stroke-width: 5; }
+.map .map__ties { stroke: #EFE6D3; stroke-width: 2.5; stroke-dasharray: 8 10; stroke-linecap: butt; }
+.map .map__a4 { stroke: #c58f8f; stroke-width: 16; }
+.map .map__ring { stroke: #dcc189; stroke-width: 12; }
+.map .map__road { stroke: #fff; stroke-width: 15; filter: drop-shadow(0 0 1px rgba(15,77,58,.45)); }
+.map .map__route { stroke: var(--gold); stroke-width: 6; stroke-dasharray: none; }
+.map text { font: 500 20px var(--sans); letter-spacing: .06em; fill: #2f3b35; }
+.map .map__small { font: italic 400 16px var(--sans); letter-spacing: .02em; fill: #3d4a44; }
+.map .map__town { font: 400 46px var(--display); letter-spacing: .02em; fill: var(--emerald); -webkit-text-stroke: .6px currentColor; }
+.map__tag text { fill: var(--emerald); font-size: 18px; }
 .map .map__shield { fill: var(--ivory); font-weight: 500; }
+.map__compass text { font-size: 14px; fill: #8C1C24; }
 .map__pulse { fill: rgba(140,28,36,.25); transform-box: fill-box; transform-origin: center; animation: pulse 2.2s ease-out infinite; }
 @keyframes pulse { from { transform: scale(.4); opacity: 1; } to { transform: scale(2.4); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .map__pulse { animation: none; opacity: .6; } }
-@media (max-width: 640px) { .venue__map { aspect-ratio: 4/3; } }
+@media (max-width: 640px) { .venue__map { aspect-ratio: 1; } }
 
 /* ---------- RSVP ---------- */
 .rsvp__note { margin: 20px auto 0; max-width: 40ch; opacity: .8; }

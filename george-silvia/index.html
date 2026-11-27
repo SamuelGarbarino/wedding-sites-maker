@@ -15,7 +15,7 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Italiana&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Italiana&family=Pinyon+Script&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero.webp" media="(min-width: 768px)">
   <link rel="preload" as="image" href="assets/img/hero-portrait.webp" media="(max-width: 767px)">
   <link rel="stylesheet" href="style.css">
@@ -33,6 +33,7 @@
     </svg>
     <span class="intro__mono">G <i>&amp;</i> S</span>
   </div>
+  <p class="intro__lead"><span data-i18n="hero.lead">Benvenuti al matrimonio tradizionale di</span></p>
   <button class="intro__skip" type="button" data-i18n="intro.skip">Salta</button>
 </div>
 
@@ -63,7 +64,6 @@
     <div class="hero__shade"></div>
     <div class="hero__content">
       <p class="script hero__kicker" lang="ak">Akwaaba</p>
-      <p class="label hero__lead" data-i18n="hero.lead">Benvenuti al matrimonio tradizionale di</p>
       <h1 class="names" aria-label="George &amp; Silvia">
         <span class="names__line foil">George</span>
         <span class="names__and">&amp;</span>
@@ -169,34 +169,48 @@
     <h2 class="title" data-split-lines>Villa Fenaroli<br>Palace Hotel</h2>
     <address class="venue__addr">Via Giuseppe Mazzini, 14<br>25086 Rezzato (BS)</address>
     <div class="venue__map">
-      <!-- mappa illustrata: schematica, non in scala -->
-      <svg class="map" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mappa: Villa Fenaroli a Rezzato, a est di Brescia, vicino all'autostrada A4" data-i18n-aria="vn.map">
+      <!-- mappa illustrata da OpenStreetMap: schematica, nord in alto, non in scala -->
+      <svg class="map" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mappa: Villa Fenaroli a Rezzato, a nord di via Mazzini (SS45bis), tra Brescia e Mazzano, sotto i colli; più a sud la tangenziale e l'autostrada A4" data-i18n-aria="vn.map">
+        <defs>
+          <pattern id="map-blk" width="16" height="16" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="11" height="11" rx="2" fill="#0F4D3A" fill-opacity=".07"/></pattern>
+        </defs>
         <rect width="800" height="450" fill="#EFE6D3"/>
-        <path class="map__park" d="M520 60c60-20 140 0 170 40s-10 90-80 90-130-30-120-70 0-50 30-60Z"/>
-        <path class="map__park" d="M90 300c40-30 120-20 140 20s-30 70-90 60-80-50-50-80Z"/>
-        <g class="map__streets">
-          <path pathLength="1" d="M300 0 L330 450"/><path pathLength="1" d="M520 0 L500 450"/>
-          <path pathLength="1" d="M0 120 L800 140"/><path pathLength="1" d="M180 0 L240 450"/>
-          <path pathLength="1" d="M640 0 L620 450"/><path pathLength="1" d="M0 330 L800 300"/>
-          <path pathLength="1" d="M380 0 L430 210 L470 450"/>
+        <g class="map__land">
+          <path fill="url(#map-blk)" d="M-10 115 L230 140 L270 245 L180 330 L-10 300Z"/>
+          <path fill="url(#map-blk)" d="M300 195 L440 180 L520 215 L610 300 L640 370 L430 360 L300 285Z"/>
+          <path fill="url(#map-blk)" d="M270 -10 L430 -10 L410 120 L290 135Z"/>
+          <path class="map__hills" fill="#0F4D3A" fill-opacity=".12" d="M440 205 C 470 150, 540 90, 640 30 S 760 -10, 810 -10 L810 170 C 720 200, 640 240, 560 250 S 470 240, 440 205Z"/>
+          <path class="map__contour" d="M480 200 C 520 150, 590 100, 680 60 S 780 30, 810 25"/>
+          <path class="map__contour" d="M520 225 C 580 180, 650 140, 740 110 S 800 95, 810 92"/>
+          <path class="map__park" fill="#0F4D3A" fill-opacity=".2" d="M345 238 L408 226 L418 262 L352 274Z"/>
+          <g class="map__peaks"><path fill="#0F4D3A" fill-opacity=".45" d="M452 200 l7 -12 l7 12Z M482 137 l7 -12 l7 12Z"/></g>
         </g>
-        <path class="map__road" pathLength="1" d="M-10 230 C 200 220, 330 245, 430 228 S 650 200, 810 215"/>
-        <path class="map__a4" pathLength="1" d="M-10 400 C 220 380, 420 395, 560 370 S 740 345, 810 350"/>
-        <path class="map__route" pathLength="1" d="M540 373 C 520 330, 470 300, 462 262 S 440 236, 430 222"/>
+        <g class="map__lines">
+          <path class="map__rail" pathLength="1" d="M-25 107 L175 172 L405 287 L535 387 L625 477"/>
+          <path class="map__a4" pathLength="1" d="M-25 360 C 60 375, 150 392, 220 418 S 310 455, 330 470"/>
+          <path class="map__ring" pathLength="1" d="M-25 327 C 60 350, 120 370, 200 380 S 380 400, 455 427 C 500 410, 560 360, 625 317 S 740 250, 810 232"/>
+          <path class="map__road" pathLength="1" d="M-25 162 C 60 170, 150 192, 225 212 S 340 240, 405 257 S 520 300, 565 322 S 700 360, 810 380"/>
+        </g>
+        <path class="map__ties" d="M-25 107 L175 172 L405 287 L535 387 L625 477"/>
+        <path class="map__route" pathLength="1" d="M455 427 C 448 390, 432 340, 428 300 S 418 262, 410 254 S 402 238, 400 232"/>
         <g class="map__labels">
-          <text x="150" y="208">← Brescia</text>
-          <text class="map__town" x="610" y="300" text-anchor="middle">Rezzato</text>
-          <g transform="translate(250 392)"><rect x="-22" y="-15" width="44" height="26" rx="6" fill="#0F4D3A"/><text class="map__shield" x="0" y="4" text-anchor="middle">A4</text></g>
+          <text x="190" y="120">← Brescia</text>
+          <text x="330" y="40">↑ Botticino</text>
+          <text class="map__town" x="540" y="250" text-anchor="middle">Rezzato</text>
+          <text class="map__small" x="470" y="198">Colle San Pietro</text>
+          <text class="map__small" x="500" y="135">Monte Regogna</text>
+          <g transform="translate(240 425)"><rect x="-22" y="-15" width="44" height="26" rx="6" fill="#0F4D3A"/><text class="map__shield" x="0" y="4" text-anchor="middle">A4</text></g>
+          <g class="map__compass" transform="translate(250 70)"><circle r="18" fill="none" stroke="#C9A13B" stroke-width="1.5"/><path d="M0 -13 L5 3 L0 0 L-5 3Z" fill="#8C1C24"/><text x="0" y="-24" text-anchor="middle">N</text></g>
         </g>
-        <g class="map__pin" transform="translate(430 222)">
+        <g class="map__pin" transform="translate(400 232)">
           <circle class="map__pulse" r="18"/>
           <g class="map__drop">
             <path d="M0 0 C -6 -14 -22 -24 -22 -42 a22 22 0 0 1 44 0 C 22 -24 6 -14 0 0Z" fill="#8C1C24" stroke="#F4EDE0" stroke-width="3"/>
             <circle cy="-42" r="8" fill="#F4EDE0"/>
           </g>
-          <g class="map__tag" transform="translate(32 -62)">
-            <rect width="170" height="40" rx="20" fill="#F4EDE0" stroke="#C9A13B" stroke-width="1.5"/>
-            <text x="85" y="26" text-anchor="middle">Villa Fenaroli</text>
+          <g class="map__tag" transform="translate(-206 -66)">
+            <rect width="176" height="40" rx="20" fill="#F4EDE0" stroke="#C9A13B" stroke-width="1.5"/>
+            <text x="88" y="26" text-anchor="middle">Villa Fenaroli</text>
           </g>
         </g>
       </svg>

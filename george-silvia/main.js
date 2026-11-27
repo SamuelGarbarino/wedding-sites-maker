@@ -311,7 +311,7 @@ if (!hasGsap || reduce) {
 
   const panels = $$(".intro__panel");
   panels.forEach((p) => (p.innerHTML = weaveSVG()));
-  const heroBits = [".hero__kicker", ".hero__lead", ".names__line", ".names__and", ".hero__invite", ".hero__date", ".hero__place", ".nav"];
+  const heroBits = [".hero__kicker", ".names__line", ".names__and", ".hero__invite", ".hero__date", ".hero__place", ".nav"];
   gsap.set(heroBits, { opacity: 0 });
 
   const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
@@ -328,8 +328,9 @@ if (!hasGsap || reduce) {
     }, 0.15)
     .fromTo(".intro__medal", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.9 }, "-=0.5")
     .to($$(".intro__medal [pathLength]"), { strokeDashoffset: 0, autoRound: false, duration: 1.1, stagger: 0.07, ease: "power2.inOut" }, "<0.1")
-    .addLabel("open", "+=0.25")
-    .to(".intro__medal", { scale: 1.5, opacity: 0, duration: 0.8, ease: "power2.in" }, "open")
+    .fromTo(".intro__lead", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9 }, "-=0.4")
+    .addLabel("open", "+=0.9")
+    .to([".intro__medal", ".intro__lead"], { scale: 1.5, opacity: 0, duration: 0.8, ease: "power2.in" }, "open")
     .to(".intro__panel--top", { yPercent: -52, duration: 1.4, ease: "expo.inOut" }, "open+=0.35")
     .to(".intro__panel--bottom", { yPercent: 52, duration: 1.4, ease: "expo.inOut" }, "<")
     .fromTo(".hero__media img", { scale: 1.25 }, { scale: 1, duration: 2.4, ease: "expo.out" }, "<")
@@ -348,9 +349,8 @@ if (!hasGsap || reduce) {
   function heroIn() {
     gsap.timeline({ defaults: { ease: "expo.out", duration: 1.4 } })
       .fromTo(".hero__kicker", { opacity: 0, y: 24, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)" })
-      .fromTo(".hero__lead", { opacity: 0, y: 12 }, { opacity: 1, y: 0 }, "<0.3")
       .fromTo(".names__line", { opacity: 0, yPercent: 30, letterSpacing: "0.2em", filter: "blur(14px)" },
-        { opacity: 1, yPercent: 0, letterSpacing: "-0.02em", filter: "blur(0px)", duration: 1.8, stagger: 0.18 }, "<0.15")
+        { opacity: 1, yPercent: 0, letterSpacing: "0em", filter: "blur(0px)", duration: 1.8, stagger: 0.18 }, "<0.15")
       .fromTo(".names__and", { opacity: 0, scale: 0.6, rotate: -12 }, { opacity: 1, scale: 1, rotate: 0 }, "<0.4")
       .fromTo(".names", { "--fx": "100%" }, { "--fx": "30%", duration: 2.4, ease: "power2.inOut" }, "<")
       .fromTo([".hero__invite", ".hero__date", ".hero__place"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.12 }, "<0.5")
@@ -455,11 +455,12 @@ void main(){
 
     // mappa del luogo: strade che si disegnano, percorso dalla A4, spillo che cade
     const mt = gsap.timeline({ scrollTrigger: { trigger: ".venue__map", start: "top 70%", once: true } });
-    mt.fromTo(".map__streets path, .map__road, .map__a4", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1.4, stagger: 0.06, ease: "power2.inOut" })
-      .fromTo(".map__labels", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.6")
-      .fromTo(".map__route", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1.2, ease: "power1.inOut" })
+    mt.from(".map__land", { opacity: 0, duration: 0.8, ease: "power1.out" })
+      .fromTo(".map__lines path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1.4, stagger: 0.15, ease: "power2.inOut" }, "-=0.4")
+      .from(".map__ties, .map__labels", { opacity: 0, duration: 0.6 }, "-=0.5")
+      .fromTo(".map__route", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, duration: 1.3, ease: "power1.inOut" })
       .from(".map__drop", { y: -120, opacity: 0, duration: 0.8, ease: "bounce.out" }, "-=0.2")
-      .from(".map__tag", { opacity: 0, x: -12, duration: 0.6, ease: "expo.out" });
+      .from(".map__tag", { opacity: 0, x: 12, duration: 0.6, ease: "expo.out" });
 
     // simbolo del footer
     ScrollTrigger.create({ trigger: ".footer", start: "top 85%", once: true, onEnter: () => drawIn($(".footer__symbol")) });
