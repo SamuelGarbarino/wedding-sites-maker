@@ -14,7 +14,7 @@ Stato (27/11/2026): sito online con la dissolvenza WebGL nell'hero (il bordo seg
 - Icone Phosphor Light (MIT) inline nello sprite SVG: Sì/No, aggiungi/rimuovi accompagnatore, invia, calendario, indicazioni, copia.
 - "RSVP" nel menu sostituito da "Conferma presenza" / "Reply".
 
-Poi: deploy Apps Script e test di una RSVP reale; confermare scadenza e testi con gli sposi.
+Prossimo passo: provare il nastro e le illustrazioni su un telefono vero (finora solo browser desktop e simulazione 375 px). Poi: deploy Apps Script e test di una RSVP reale; confermare scadenza e testi con gli sposi.
 
 ## Il matrimonio
 - **Sposi:** George & Silvia — matrimonio tradizionale ganese
