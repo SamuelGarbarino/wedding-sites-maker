@@ -21,7 +21,7 @@ $$("svg.draw use").forEach((u) => {
 });
 const drawIn = (svg, opt = {}) =>
   hasGsap && !reduce
-    ? gsap.to($$("[pathLength]", svg), { strokeDashoffset: 0, duration: 1.4, stagger: 0.1, ease: "power2.inOut", ...opt })
+    ? gsap.to($$("[pathLength]", svg), { strokeDashoffset: 0, autoRound: false, duration: 1.4, stagger: 0.1, ease: "power2.inOut", ...opt })
     : svg.classList.add("is-drawn");
 
 /* ---------- lingua ---------- */
@@ -315,7 +315,7 @@ if (!hasGsap || reduce) {
   gsap.set(heroBits, { opacity: 0 });
 
   const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-  tl.to($$(".wp", intro), { strokeDashoffset: 0, duration: 0.9, stagger: { each: 0.005, from: "center" } })
+  tl.to($$(".wp", intro), { strokeDashoffset: 0, autoRound: false, duration: 0.9, stagger: { each: 0.005, from: "center" } })
     .from($$(".wf", intro), {
       scaleX: 0,
       transformOrigin: (k, el) => (el.dataset.i % 2 ? "100% 50%" : "0% 50%"),
@@ -327,7 +327,7 @@ if (!hasGsap || reduce) {
       },
     }, 0.15)
     .fromTo(".intro__medal", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.9 }, "-=0.5")
-    .to($$(".intro__medal [pathLength]"), { strokeDashoffset: 0, duration: 1.1, stagger: 0.07, ease: "power2.inOut" }, "<0.1")
+    .to($$(".intro__medal [pathLength]"), { strokeDashoffset: 0, autoRound: false, duration: 1.1, stagger: 0.07, ease: "power2.inOut" }, "<0.1")
     .addLabel("open", "+=0.25")
     .to(".intro__medal", { scale: 1.5, opacity: 0, duration: 0.8, ease: "power2.in" }, "open")
     .to(".intro__panel--top", { yPercent: -52, duration: 1.4, ease: "expo.inOut" }, "open+=0.35")
@@ -444,7 +444,8 @@ void main(){
     });
 
     // timeline: il nastro kente si srotola con lo scroll, le illustrazioni entrano al passaggio
-    gsap.fromTo(".tl__reveal", { strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: ".tl", start: "top 70%", end: "bottom 60%", scrub: 0.8 } });
+    // come su bysamlab.com: il nastro oro si allunga e si ritrae seguendo lo scroll
+    gsap.fromTo(".tl__band", { strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, ease: "none", scrollTrigger: { trigger: ".tl", start: "top 78%", end: "bottom 58%", scrub: 0.5 } });
     $$(".tl__item").forEach((item) => {
       const st = { trigger: item, start: "top 75%" };
       gsap.from($(".tl__art", item), { scale: 0.85, opacity: 0, duration: 1.2, ease: "expo.out", scrollTrigger: st });

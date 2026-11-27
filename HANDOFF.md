@@ -9,8 +9,8 @@ Stato (27/11/2026): sito online con la dissolvenza WebGL nell'hero (il bordo seg
 - **Non fatto (scelte):** pulsante "Modifica risposta", intro solo alla prima visita, traduzione titolo mappa e dettagli calendario, contatto WhatsApp nel messaggio d'errore (serve il numero degli sposi).
 
 **Fatto il 27/11 (notte):**
-- Programma ridisegnato: sezione avorio, nastro kente (oro con filo cremisi tratteggiato) che si srotola con lo scroll dietro le card, sul modello di `Effetto nastro a scorrimento/` ma sottile. Percorso calcolato in JS (`ribbon()` in `main.js`): desktop passa dal centro delle card, mobile nella fascia libera accanto alle illustrazioni.
-- 5 illustrazioni degli sposi in kente (cerimonia, aperitivo, pranzo, torta, festa) generate con Gemini via Claude in Chrome: `george-silvia/assets/img/tl-1..5.webp` (originali in `Documents/Media Gen/2026-11-27-gemini-timeline/`). Fondo bianco + `mix-blend-mode: multiply` sull'avorio.
+- Programma ridisegnato: sezione avorio, nastro oro pieno che si allunga e si ritrae con lo scroll dietro le card (come su bysamlab.com: scrub 0.5, da "top 78%" a "bottom 58%"). Attenzione: le animazioni di `strokeDashoffset` con `pathLength=1` vogliono `autoRound: false`, altrimenti GSAP arrotonda a 0/1 e il tratto scatta. Percorso calcolato in JS (`ribbon()` in `main.js`): desktop passa dal centro delle card, mobile nella fascia libera accanto alle illustrazioni.
+- 5 illustrazioni (rifatte il 27/11: sposa con capelli ricci senza copricapo, sposo ispirato alla foto di Samuel, pranzo seduti con i piatti, festa piena di invitati di diverse origini, senza tamburo) (cerimonia, aperitivo, pranzo, torta, festa) generate con Gemini via Claude in Chrome: `george-silvia/assets/img/tl-1..5.webp` (originali in `Documents/Media Gen/2026-11-27-gemini-timeline/`). Fondo bianco + `mix-blend-mode: multiply` sull'avorio.
 - Icone Phosphor Light (MIT) inline nello sprite SVG: Sì/No, aggiungi/rimuovi accompagnatore, invia, calendario, indicazioni, copia.
 - "RSVP" nel menu sostituito da "Conferma presenza" / "Reply".
 
