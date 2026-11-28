@@ -3,19 +3,19 @@
 Ultimo aggiornamento: 28/11/2026 (invito cartaceo allineato al sito, scelta stampa e buste)
 
 ## Riparti da qui
-Stato (28/11/2026): sito online; invito cartaceo allineato al nuovo sito (fronte con kente nuovo, "Matrimonio tradizionale privato", fedi; retro con dress code, timeline invariata), PDF IT/EN rigenerati ma ancora in RGB. RSVP non ancora attivo (manca il deploy di Apps Script). Accordi con il cliente: nel vault Obsidian, non qui (repo pubblico). La cartella `preventivo/` non va mai committata.
-Prossimo passo cartaceo: preparare il PDF per Stampaprint (togliere il fondo avorio dal retro, CMYK FOGRA39, testi in tracciati, verificare l'abbondanza sul loro layout), disegno del timbro (Gye Nyame o G&S), poi aggiungere il cartaceo al preventivo.
+Stato (28/11/2026): sito online; invito cartaceo allineato al nuovo sito (fronte con kente nuovo, "Matrimonio tradizionale privato", fedi; retro con dress code, timeline invariata), PDF IT/EN a schermo in RGB; PDF di stampa CMYK pronti in `george-silvia/invito/stampa/`. RSVP non ancora attivo (manca il deploy di Apps Script). Accordi con il cliente: nel vault Obsidian, non qui (repo pubblico). La cartella `preventivo/` non va mai committata.
+Prossimo passo cartaceo: far confermare il testo agli sposi (l'invito dice "Scrivici" ma non ha telefono né email), ordinare (Stampaprint con `invito-it-stampa-cmyk.pdf`, senza prova colore; buste; timbro), poi aggiungere il cartaceo al preventivo.
 Prossimo passo sul sito: prova su telefono vero (busta, hero con frase lunga), aggiornare `og.jpg` col nuovo kente, deploy Apps Script.
 
 **Fatto il 28/11 (invito cartaceo e piano di stampa):**
 - `invito.html`: fronte con `hero-kente2-portrait.webp` nella metà bassa (sopra verde pieno, testo leggibile), testo dell'hero del sito + "di" + fedi SVG; nomi a 62 pt. Retro: riga Dress code sopra il luogo. QR statico `qr.svg` con sigillo G&S al centro. Export PDF: Playwright (Chrome) con `prefer_css_page_size`.
 - Piano di stampa (consegna a mano, niente posta), 40 invitati → 50 copie:
-  - Inviti: Stampaprint "carte esclusive" (prodotto 5269), formato personalizzato 14,8×21, fronte/retro, Avorio 350 g, 50 copie ≈ 25,78 € IVA incl.; prova colore 24,40 €. Il coordinato inviti+buste stampate (prodotto 5261) costa ≈ 126 € per 50: scartato.
+  - Inviti: Stampaprint "carte esclusive" (prodotto 5269), formato personalizzato 14,8×21, fronte/retro, Avorio 350 g, 50 copie ≈ 25,78 € IVA incl.; prova colore (24,40 €) scartata dal cliente. Il coordinato inviti+buste stampate (prodotto 5261) costa ≈ 126 € per 50: scartato.
   - Prezzi letti dall'API del configuratore: `/it/wbsrv/configuratorprices.php?...&category=-5269` (WIDTH_PERS/HEIGHT_PERS in cm), prezzi IVA esclusa.
-  - Buste: C5 162×229 verde scuro, Netuno Sirio Color "Foglia" 115 g (Amazon, 2×25 = 33 €). Alternativa avorio: Clairefontaine Pollen 5442C (20 pz, 9,55 €). Scartata Paper24 (0 recensioni, 12 € di spedizione).
-  - Sigillo: timbro in ottone personalizzato (≈ 15 € + 7 € sped.) + perline ceralacca oro ASTARON (7,99 €). Alternativa: adesivi in ceralacca personalizzati (≈ 37 €).
-  - Totale ≈ 113 € (≈ 89 € senza prova colore).
-- Requisiti Stampaprint: PDF/JPG, CMYK (FOGRA39 consigliato), 300 dpi, testi in tracciati; abbondanza per le partecipazioni non dichiarata. Su carta avorio il fondo avorio stampato del retro va tolto.
+  - Buste: C5 162×229 verde scuro, Netuno Sirio Color "Foglia" 115 g (Amazon B08C5GRYLX, 25 pz a 11,50 €, verificato il 28/11: 2 confezioni = 23 €). Alternativa avorio: Clairefontaine Pollen 5442C (20 pz, 9,55 €). Scartata Paper24 (0 recensioni, 12 € di spedizione).
+  - Sigillo: timbro in ottone Amazon B0DMFGNFTY ("Letters and Logo", 13,99 € spedito, 4,7★ su 339, accetta un'immagine caricata in pagina, quindi Gye Nyame) a 30 mm, con disegno vettoriale semplificato in bianco e nero. Prima chiedere al venditore il diametro e una bozza; se non la danno, Stamprints (circa 40 €, bozza gratuita). Ceralacca: ASTARON 300 perline (B0DFWBRS47, 10,99 €; controllare che sia oro), perché le 100 perline bastano per circa 32 sigilli.
+  - Totale ≈ 74 € (inviti 25,78 + buste 23 + timbro 13,99 + ceralacca 10,99).
+- Requisiti Stampaprint: PDF/JPG, CMYK (FOGRA39 consigliato), 300 dpi, testi in tracciati; layout del prodotto 5269 (A5): file 152×214 mm, abbondanza 2 mm, margine di sicurezza 4 mm (letto da `array_istruzioni` nella risposta del configuratore).
 - Misure: A5 in C5 = gioco di 7 mm (lati) e 9,5 mm (sopra/sotto), corretto. Se si spedisse: tariffa ordinaria Medio Standard 2,90 € fino a 50 g; Poste chiede buste chiare (su busta scura servirebbe un'etichetta per l'indirizzo).
 
 **Fatto il 27/11 (feedback degli sposi, commit `4161961`, `8658cc8`, `2ce1651`, `4c58b2d`):**
@@ -115,7 +115,8 @@ Nota: se modifichi `Code.gs` dopo il deploy, serve **Gestisci deployment → Mod
 
 ### 3. Invito cartaceo
 - Rigenerare i PDF dopo modifiche: servire la cartella (`python -m http.server 5173` dalla root) e lanciare l'export Playwright (vedi sezione Comandi).
-- Per la tipografia: formato finito A5 148×210 mm, PDF a 2 pagine con 3 mm di abbondanza (154×216 mm), stampa senza lamina (oro come colore). Export con lo script Playwright descritto in "Comandi".
+- Per la tipografia: formato finito A5 148×210 mm, stampa senza lamina (oro come colore). L'HTML ha 3 mm di abbondanza (154×216 mm).
+- PDF di stampa: `python george-silvia/invito/export_stampa.py` → `invito/stampa/invito-{it,en}-stampa-cmyk.pdf`: 152×214 mm (2 mm di abbondanza, TrimBox 148×210), raster 600 dpi convertito in CMYK con `CoatedFOGRA39.icc` di Windows, nessun font (vale come testi in tracciati). Avorio forzato a bianco (`--ivory:#fff`): su carta avorio il bianco non stampa. Lo script controlla il margine di 4 mm e verifica formato, CMYK e assenza di font. Verificati: QR letto anche a scala ridotta, URL del sito risponde 200, 18/09/2027 è sabato, kente a 253 dpi (accettabile per una foto).
 
 ## Comandi
 ```powershell
