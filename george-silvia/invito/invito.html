@@ -24,10 +24,16 @@
 
   /* ---------- fronte ---------- */
   .front { background: var(--deep); color: var(--ivory); }
-  .front img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
-  .front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,15,11,.45) 0%, rgba(5,15,11,0) 45%, rgba(11,31,24,.25) 100%); }
+  /* kente solo nella metà bassa: il testo resta sul verde scuro e si legge */
+  .front img { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 48%; object-fit: cover; object-position: 50% 70%; }
+  .front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--deep) 0%, var(--deep) 52%, rgba(11,46,35,0) 66%, rgba(11,31,24,.2) 100%); }
   .front .safe { z-index: 1; padding-top: 6mm; }
-  .names { position: relative; width: 4.6em; font: italic 500 72pt/.9 "Cormorant Garamond", serif; text-align: left; margin: 8mm 0 10mm; }
+  /* testo d'invito come l'hero del sito */
+  .lead { max-width: 92mm; margin: 0; font: 300 10.5pt/1.5 "DM Sans"; text-shadow: 0 .3mm 1.2mm rgba(0,0,0,.5); }
+  .event { display: block; margin-top: 2.5mm; font: 500 7.6pt/1.5 "DM Sans"; letter-spacing: .28em; text-transform: uppercase; color: var(--gold-soft); }
+  .of { margin: 2mm 0 0; font-size: 22pt; line-height: 1.1; color: var(--gold-soft); }
+  .rings { width: 17mm; margin: 0 0 4mm; filter: drop-shadow(0 .8mm 1.6mm rgba(0,0,0,.4)); }
+  .names { position: relative; width: 4.6em; font: italic 500 62pt/.9 "Cormorant Garamond", serif; text-align: left; margin: 3mm 0 4mm; }
   .names span { display: block; }
   .names span:last-child { text-align: right; }
   /* & grande e trasparente dietro i nomi, come sul sito (variante F) */
@@ -54,6 +60,8 @@
   .tl h3 { margin: 0; font: 400 14pt/1 "Italiana"; color: var(--emerald); -webkit-text-stroke: .25px currentColor; }
   .tl .time { margin: 1.2mm 0 .8mm; font: 500 6.8pt/1.2 "DM Sans"; letter-spacing: .14em; text-transform: uppercase; color: #6e520c; }
   .tl .d { margin: 0; font: 400 8pt/1.35 "DM Sans"; color: #2b2620; }
+  .dress { margin: -4mm 0 6mm; font-size: 8.6pt; display: flex; flex-direction: column; gap: 1mm; }
+  .dress .label { color: #6e520c; }
   .venue { font: 400 13pt/1.15 "Italiana"; color: var(--emerald); margin: 0 0 2.5mm; }
   .addr { margin: 0 0 10mm; font-size: 8.6pt; }
   .rsvp { display: flex; align-items: center; gap: 5mm; text-align: left; border-top: .2mm solid rgba(15,77,58,.3); padding-top: 5mm; width: 100%; }
@@ -61,8 +69,11 @@
   .rsvp .t { font: 400 13pt/1.1 "Italiana"; color: var(--emerald); margin-bottom: 1.2mm; }
   .rsvp .s { font-size: 8.5pt; }
   .rsvp .u { font-size: 7.5pt; color: var(--emerald); margin-top: 1mm; word-break: break-all; }
-  .qr { flex: 0 0 22mm; height: 22mm; }
-  .qr svg { width: 100%; height: 100%; display: block; }
+  .qr { position: relative; flex: 0 0 26mm; height: 26mm; }
+  .qr img { width: 100%; height: 100%; display: block; }
+  /* sigillo al centro: il QR ha correzione H, regge la copertura */
+  .qr__seal { position: absolute; left: 50%; top: 50%; width: 5.6mm; height: 5.6mm; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--ivory); box-shadow: 0 0 0 .5mm var(--ivory), 0 0 0 .75mm #a8842a; font: italic 500 7pt/1 "Cormorant Garamond"; color: #0b2e23; letter-spacing: -.02em; white-space: nowrap; }
+  .qr__seal i { color: #a8842a; }
   .kente { position: absolute; left: 0; right: 0; bottom: 0; height: 9mm;
     background:
       repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 .3mm, transparent .3mm .9mm),
@@ -75,9 +86,18 @@
 
 <!-- FRONTE -->
 <section class="page front">
-  <img src="../assets/img/hero-portrait.jpg" alt="">
+  <img src="../assets/img/hero-kente2-portrait.webp" alt="">
   <div class="safe">
+    <p class="lead"><span data-t="lead">Insieme alla nostra famiglia, abbiamo l'onore di invitarvi al</span><strong class="event" data-t="event">Matrimonio tradizionale privato</strong></p>
+    <p class="script of" data-t="of">di</p>
     <h1 class="names"><span class="foil">George</span><span class="and">&amp;</span><span class="foil">Silvia</span></h1>
+    <svg class="rings" viewBox="0 0 100 64" aria-hidden="true">
+      <g fill="none" stroke="#e3c77a" stroke-width="4.5">
+        <circle cx="38" cy="38" r="21"/><circle cx="62" cy="38" r="21"/>
+        <path d="M57.8 17.4 A21 21 0 0 1 59 38"/>
+      </g>
+      <path d="M62 6 l5 6 -5 6 -5 -6z" fill="#f6e3a1" stroke="#c9a13b" stroke-width="1"/>
+    </svg>
     <p class="date"><span>18</span><i></i><span>09</span><i></i><span>2027</span></p>
     <p class="label" data-t="when">Sabato · ore 11:00</p>
     <p class="label" style="margin-top:1.5mm">Villa Fenaroli Palace Hotel · Rezzato (BS)</p>
@@ -96,13 +116,14 @@
       <li><p class="big">17:00</p><span class="ico"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#ph-cake"/></svg></span><div class="txt"><h3 data-t="t4">Taglio della torta</h3><p class="time"><span data-t="until">fino alle</span> 18:00</p><p class="d" data-t="d4">Il momento più dolce</p></div></li>
       <li><p class="big">18:00</p><span class="ico"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#ph-music-notes"/></svg></span><div class="txt"><h3 data-t="t5">Festa</h3><p class="time"><span data-t="until">fino alle</span> 23:00</p><p class="d" data-t="d5">Si balla fino a tarda sera</p></div></li>
     </ol>
+    <p class="dress"><span class="label" data-t="dress">Dress code</span><span data-t="dress2">Kente o abito tradizionale; in alternativa, un look elegante.</span></p>
     <p class="venue">Villa Fenaroli Palace Hotel</p>
     <p class="addr">Via Giuseppe Mazzini, 14 · 25086 Rezzato (BS)</p>
     <div class="rsvp">
-      <div class="qr" id="qr"></div>
+      <div class="qr"><img src="qr.svg" alt=""><span class="qr__seal" aria-hidden="true">G<i>&amp;</i>S</span></div>
       <div>
-        <p class="t" data-t="rsvp">Conferma la tua presenza</p>
-        <p class="s" data-t="rsvp2">Inquadra il codice entro il 30 giugno 2027: troverai il programma, la mappa e il modulo di risposta.</p>
+        <p class="t" data-t="rsvp">Facci sapere se ci sarai</p>
+        <p class="s" data-t="rsvp2">Scrivici entro il 30 giugno 2027, oppure inquadra il codice: sul nostro sito trovi il programma, la mappa e il modulo per risponderci.</p>
         <p class="u">samuelgarbarino.github.io/wedding-sites-maker/george-silvia</p>
       </div>
     </div>
@@ -120,23 +141,19 @@
   </defs>
 </svg>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 <script>
   const EN = {
     when: "Saturday · 11:00 am",
+    lead: "Together with our family, we humbly request the honour of your presence at the", event: "Private Traditional wedding", of: "of",
+    dress: "Dress code", dress2: "Kente or traditional attire; an elegant outfit is equally welcome.",
     day: "Our day", program: "The schedule", until: "until", t1: "Ceremony", t2: "Aperitivo", t3: "Wedding lunch", t4: "Cake cutting", t5: "Party",
     d1: "Exchanging our vows", d2: "A toast all together", d3: "At the table with those we love", d4: "The sweetest moment", d5: "Dancing into the night",
-    rsvp: "Kindly reply", rsvp2: "Scan the code by 30 June 2027 to find the schedule, the map and the reply form.",
+    rsvp: "Let us know you'll be there", rsvp2: "Write to us by 30 June 2027, or scan the code: our website has the schedule, the map and the form to reply to us.",
   };
   if (new URLSearchParams(location.search).get("lang") === "en") {
     document.documentElement.lang = "en";
     document.querySelectorAll("[data-t]").forEach((el) => (el.textContent = EN[el.dataset.t]));
   }
-
-  const qr = qrcode(0, "M");
-  qr.addData("https://samuelgarbarino.github.io/wedding-sites-maker/george-silvia/");
-  qr.make();
-  document.getElementById("qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }).replace(/fill="black"/g, 'fill="#0b2e23"').replace(/<rect[^>]*fill="white"[^>]*\/>/, "");
 </script>
 </body>
 </html>

@@ -1,10 +1,22 @@
 # HANDOFF — Wedding Sites Maker · George & Silvia
 
-Ultimo aggiornamento: 27/11/2026 (feedback sposi)
+Ultimo aggiornamento: 28/11/2026 (invito cartaceo allineato al sito, scelta stampa e buste)
 
 ## Riparti da qui
-Stato (27/11/2026, feedback degli sposi applicato): sito online, ultimo commit `4c58b2d`. RSVP non ancora attivo (manca il deploy di Apps Script). Accordi con il cliente: nel vault Obsidian, non qui (repo pubblico). La cartella `preventivo/` non va mai committata.
+Stato (28/11/2026): sito online; invito cartaceo allineato al nuovo sito (fronte con kente nuovo, "Matrimonio tradizionale privato", fedi; retro con dress code, timeline invariata), PDF IT/EN rigenerati ma ancora in RGB. RSVP non ancora attivo (manca il deploy di Apps Script). Accordi con il cliente: nel vault Obsidian, non qui (repo pubblico). La cartella `preventivo/` non va mai committata.
+Prossimo passo cartaceo: preparare il PDF per Stampaprint (togliere il fondo avorio dal retro, CMYK FOGRA39, testi in tracciati, verificare l'abbondanza sul loro layout), disegno del timbro (Gye Nyame o G&S), poi aggiungere il cartaceo al preventivo.
 Prossimo passo sul sito: prova su telefono vero (busta, hero con frase lunga), aggiornare `og.jpg` col nuovo kente, deploy Apps Script.
+
+**Fatto il 28/11 (invito cartaceo e piano di stampa):**
+- `invito.html`: fronte con `hero-kente2-portrait.webp` nella metà bassa (sopra verde pieno, testo leggibile), testo dell'hero del sito + "di" + fedi SVG; nomi a 62 pt. Retro: riga Dress code sopra il luogo. QR statico `qr.svg` con sigillo G&S al centro. Export PDF: Playwright (Chrome) con `prefer_css_page_size`.
+- Piano di stampa (consegna a mano, niente posta), 40 invitati → 50 copie:
+  - Inviti: Stampaprint "carte esclusive" (prodotto 5269), formato personalizzato 14,8×21, fronte/retro, Avorio 350 g, 50 copie ≈ 25,78 € IVA incl.; prova colore 24,40 €. Il coordinato inviti+buste stampate (prodotto 5261) costa ≈ 126 € per 50: scartato.
+  - Prezzi letti dall'API del configuratore: `/it/wbsrv/configuratorprices.php?...&category=-5269` (WIDTH_PERS/HEIGHT_PERS in cm), prezzi IVA esclusa.
+  - Buste: C5 162×229 verde scuro, Netuno Sirio Color "Foglia" 115 g (Amazon, 2×25 = 33 €). Alternativa avorio: Clairefontaine Pollen 5442C (20 pz, 9,55 €). Scartata Paper24 (0 recensioni, 12 € di spedizione).
+  - Sigillo: timbro in ottone personalizzato (≈ 15 € + 7 € sped.) + perline ceralacca oro ASTARON (7,99 €). Alternativa: adesivi in ceralacca personalizzati (≈ 37 €).
+  - Totale ≈ 113 € (≈ 89 € senza prova colore).
+- Requisiti Stampaprint: PDF/JPG, CMYK (FOGRA39 consigliato), 300 dpi, testi in tracciati; abbondanza per le partecipazioni non dichiarata. Su carta avorio il fondo avorio stampato del retro va tolto.
+- Misure: A5 in C5 = gioco di 7 mm (lati) e 9,5 mm (sopra/sotto), corretto. Se si spedisse: tariffa ordinaria Medio Standard 2,90 € fino a 50 g; Poste chiede buste chiare (su busta scura servirebbe un'etichetta per l'indirizzo).
 
 **Fatto il 27/11 (feedback degli sposi, commit `4161961`, `8658cc8`, `2ce1651`, `4c58b2d`):**
 - **Intro = busta interattiva.** Busta smeraldo a schermo intero, lembo SVG che si apre (`rotateX`), sigillo oro con il Gye Nyame al centro (SVG CC0 di kasahorow/Openclipart da Wikimedia), sotto il versetto «Così non sono più due, ma una sola carne; quello dunque che Dio ha unito, l'uomo non lo separi.» Matteo 19:6 (EN in traduzione corrente). La timeline GSAP si ferma con `addPause` finché l'ospite non tocca la busta (hint "Tocca la busta per aprirla" che pulsa, sigillo è un `<button>` con focus). "Salta" apre subito. Il failsafe CSS a tempo viene annullato dal JS (`intro.style.animation = "none"`), resta solo se il JS non parte.
@@ -12,7 +24,7 @@ Prossimo passo sul sito: prova su telefono vero (busta, hero con frase lunga), a
 - **Hero:** "Insieme alla nostra famiglia, abbiamo l'onore di invitarvi al" / "Together with our family, we humbly request the honour of your presence at the", poi "MATRIMONIO TRADIZIONALE PRIVATO" / "PRIVATE TRADITIONAL WEDDING" in oro, "di"/"of" in corsivo, nomi, due fedi intrecciate SVG che si disegnano. Tolti Akwaaba e "Insieme alle loro famiglie vi invitano". Nuovo kente (drappo intero, lato scuro a destra / sopra su mobile): `hero-kente2.webp|jpg`, `hero-kente2-portrait.webp` (originali in `Documents/Media Gen/2026-11-27-hero-kente-2-*`).
 - **Dress code:** sezione nuova tra Luogo e RSVP, tre campioni di stoffa in CSS (Kente, Abito tradizionale, Elegante) e una frase.
 - **Timeline:** gli sposi hanno scelto lo stile C "illustrazione di moda" su 3 proposte (artefatto https://claude.ai/artifact/RoyLfbR1t4YGPh43tg2ro7). Tutte e 5 rifatte con `media-gen` (nano-banana-pro-edit, con la vecchia scena e la cerimonia C come riferimenti), `tl-1..5.webp` a 720 px.
-- Non fatto: `og.jpg` mostra ancora il kente vecchio; `hero.webp`/`hero-portrait.webp` vecchi ancora nella cartella; modifiche all'invito (`invito.html`, PDF, `qr.svg`) in sospeso da prima, non committate.
+- Non fatto: `og.jpg` mostra ancora il kente vecchio; `hero.webp`/`hero-portrait.webp` vecchi ancora nella cartella.
 
 **Prima (27/11, sera):** sito con la dissolvenza WebGL nell'hero e le correzioni della revisione UX/UI; invito PDF IT/EN pronto.
 - **Shader:** adattato da `Ironhill-section-rebuild-main/` in WebGL puro (niente Three.js), funzione `heroVeil()` in `main.js`, canvas `.hero__veil`. Disattivato con `prefers-reduced-motion`; senza WebGL il canvas viene rimosso.
